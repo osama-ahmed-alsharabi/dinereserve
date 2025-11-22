@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:dinereserve/core/router/app_router_const.dart';
 import 'package:dinereserve/core/utils/app_asset.dart';
 import 'package:dinereserve/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -25,21 +27,16 @@ class _SplashViewState extends State<SplashView>
       duration: const Duration(seconds: 3),
     );
 
-    _rotationAnimation =
-        Tween<double>(begin: 0, end: 2 * pi).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    ));
+    _rotationAnimation = Tween<double>(
+      begin: 0,
+      end: 2 * pi,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
     _controller.forward();
 
-    Timer(const Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(
-        PageRouteBuilder(
-          transitionDuration: const Duration(milliseconds: 800),
-          pageBuilder: (_, __, ___) => const DineReserveView(),
-        ),
-      );
+    Future.delayed(const Duration(seconds: 3), () {
+      if (!mounted) return;
+      context.goNamed(AppRouterConst.dineReserveView);
     });
   }
 
@@ -61,9 +58,7 @@ class _SplashViewState extends State<SplashView>
             builder: (context, child) {
               return Transform.rotate(
                 angle: _rotationAnimation.value,
-                child: Image.asset(
-                  AppAsset.imagesLogo,
-                ),
+                child: Image.asset(AppAsset.imagesLogo),
               );
             },
           ),
@@ -73,8 +68,22 @@ class _SplashViewState extends State<SplashView>
   }
 }
 
-class DineReserveView extends StatelessWidget {
+class DineReserveView extends StatefulWidget {
   const DineReserveView({super.key});
+
+  @override
+  State<DineReserveView> createState() => _DineReserveViewState();
+}
+
+class _DineReserveViewState extends State<DineReserveView> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 1), () {
+      if (!mounted) return;
+      context.goNamed(AppRouterConst.onBoardingViewRouteName);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,9 +97,7 @@ class DineReserveView extends StatelessWidget {
               Expanded(
                 child: Hero(
                   tag: "logo",
-                  child: Image.asset(
-                    AppAsset.imagesLogo,
-                  ),
+                  child: Image.asset(AppAsset.imagesLogo),
                 ),
               ),
               const SizedBox(width: 10),
