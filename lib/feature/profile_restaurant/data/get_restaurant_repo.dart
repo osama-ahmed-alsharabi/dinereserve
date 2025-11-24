@@ -48,4 +48,17 @@ class GetRestaurantRepo {
         .getPublicUrl(fileName);
     return publicUrl;
   }
+
+  Future<List<RestaurantModel>> getAllRestaurants() async {
+    final response = await supabase.from("restaurant").select();
+    return (response as List).map((e) => RestaurantModel.fromMap(e)).toList();
+  }
+
+  Future<List<RestaurantModel>> getRestaurantsByType(String type) async {
+    final response = await supabase
+        .from("restaurant")
+        .select()
+        .eq("restaurant_type", type);
+    return (response as List).map((e) => RestaurantModel.fromMap(e)).toList();
+  }
 }

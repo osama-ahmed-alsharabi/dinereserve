@@ -51,6 +51,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 label: "Phone Number",
                 hint: "Enter Your Phone Number",
                 icon: Icons.phone,
+                keyboardType: TextInputType.number,
               ),
               SizedBox(height: 15),
               CustomTextFromFieldPassword(
