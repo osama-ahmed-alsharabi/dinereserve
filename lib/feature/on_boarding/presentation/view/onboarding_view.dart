@@ -1,8 +1,10 @@
+import 'package:dinereserve/core/router/app_router_const.dart';
 import 'package:dinereserve/core/utils/app_asset.dart';
 import 'package:dinereserve/core/utils/app_colors.dart';
 import 'package:dinereserve/core/utils/app_text_style.dart';
 import 'package:dinereserve/feature/on_boarding/data/model/onboarding_model.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class OnboardingView extends StatefulWidget {
   const OnboardingView({super.key});
@@ -110,7 +112,7 @@ class _OnboardingViewState extends State<OnboardingView>
   }
 
   void _completeOnboarding() {
-    print("Onboarding completed!");
+    context.goNamed(AppRouterConst.registerViewRouteName);
   }
 
   void _skipOnboarding() {

@@ -1,76 +1,87 @@
-
-import 'package:flutter/material.dart';
-
 class ValidatorHelper {
-  static String? validateRequired(
-    String? value, {
-    String? fieldName,
-    required BuildContext context,
-  }) {
+  /// Required field
+  static String? validateRequired(String? value, {required String fieldName}) {
     if (value == null || value.trim().isEmpty) {
-      return fieldName != null ? 'الرجاء إدخال $fieldName' : '';
+      return "Please enter $fieldName";
     }
     return null;
   }
 
-  static String? validateEmail(String? value, {required BuildContext context}) {
-    final v = value?.trim() ?? '';
-    if (v.isEmpty) return "الايميل مطلوب";
-
-    final emailRegex = RegExp(
-      r'^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,24}$',
-      caseSensitive: false,
-    );
-
-    if (!emailRegex.hasMatch(v)) {
-      return "الايميل غير صالح";
+  /// Full Name (only letters, at least 3 chars)
+  static String? validateFullName(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return "Please enter your full name";
     }
+
+    if (value.trim().length < 3) {
+      return "Full name must be at least 3 characters";
+    }
+
     return null;
   }
 
-  static String? validatePassword(
-    String? value, {
-    required BuildContext context,
-  }) {
+  /// Saudi Phone Number - 05XXXXXXXX
+  static String? validateSaudiPhone(String? value) {
+    final v = value?.trim() ?? "";
+
+    if (v.isEmpty) return "Please enter your phone number";
+
+    final cleaned = v.replaceAll(RegExp(r'[\s-]'), '');
+
+    final phoneRegex = RegExp(r'^05\d{8}$');
+
+    if (!phoneRegex.hasMatch(cleaned)) {
+      return "Phone number must start with 05 and be 10 digits";
+    }
+
+    return null;
+  }
+
+  /// Age validation
+  static String? validateAge(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return "Please enter your age";
+    }
+
+    final age = int.tryParse(value.trim());
+
+    if (age == null) {
+      return "Age must be a valid number";
+    }
+
+    if (age < 10 || age > 120) {
+      return "Age must be between 10 and 120";
+    }
+
+    return null;
+  }
+
+  /// Password validation
+  static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return "الرجاء ادخال الباسورد";
+      return "Please enter your password";
     }
+
     if (value.length < 6) {
-      return "يجب على الاقل ان تتكون كملة المرور من 6 احرف او ارقام";
+      return "Password must be at least 6 characters";
     }
+
     return null;
   }
 
-  static String? validatePhoneNumber(
-    String? value, {
-    required BuildContext context,
-  }) {
-    final raw = value?.trim() ?? '';
-    if (raw.isEmpty) {
-      return "الرجاء ادخال رقم الهاتف";
+  /// Confirm password
+  static String? validateConfirmPassword(
+    String? value,
+    String? originalPassword,
+  ) {
+    if (value == null || value.isEmpty) {
+      return "Please confirm your password";
     }
 
-    final normalized = _toAsciiDigits(raw).replaceAll(RegExp(r'[\s-]'), '');
-
-    final phoneRegex = RegExp(r'^(77|78|71|73|70)\d{7}$');
-
-    if (!phoneRegex.hasMatch(normalized)) {
-      return "يجب ان يكون 9 ارقام وان يبداء 77, 78 , 71 , 73 , 70";
+    if (value != originalPassword) {
+      return "Passwords do not match";
     }
+
     return null;
-  }
-
-  static String _toAsciiDigits(String input) {
-    final sb = StringBuffer();
-    for (final cp in input.runes) {
-      if (cp >= 0x0660 && cp <= 0x0669) {
-        sb.write(cp - 0x0660);
-      } else if (cp >= 0x06F0 && cp <= 0x06F9) {
-        sb.write(cp - 0x06F0);
-      } else {
-        sb.write(String.fromCharCode(cp));
-      }
-    }
-    return sb.toString();
   }
 }

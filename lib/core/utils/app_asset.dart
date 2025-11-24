@@ -6,7 +6,11 @@ class AppAsset {
 
   static const String imagesFirstOnboardingImage = "assets/images/first_onboarding_image.png";
 
+  static const String imagesLoginBackground = "assets/images/login_background.png";
+
   static const String imagesLogo = "assets/images/logo.png";
+
+  static const String imagesRegisterBackground = "assets/images/register_background.png";
 
   static const String imagesSecondOnboardingImage = "assets/images/second_onboarding_image.png";
 

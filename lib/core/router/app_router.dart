@@ -1,5 +1,6 @@
 import 'package:dinereserve/core/router/app_router_const.dart';
 import 'package:dinereserve/core/router/page_transitions.dart';
+import 'package:dinereserve/feature/auth/register/presentation/view/register_view.dart';
 import 'package:dinereserve/feature/on_boarding/presentation/view/onboarding_view.dart';
 import 'package:dinereserve/feature/splash/presentation/view/splash_view.dart';
 import 'package:go_router/go_router.dart';
@@ -26,7 +27,16 @@ class AppRouter {
           transitionsBuilder: PageTransitions.noTransition,
         ),
       ),
-       GoRoute(
+      GoRoute(
+        path: '/${AppRouterConst.registerViewRouteName}',
+        name: AppRouterConst.registerViewRouteName,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const RegisterView(),
+          transitionsBuilder: PageTransitions.noTransition,
+        ),
+      ),
+      GoRoute(
         path: '/${AppRouterConst.onBoardingViewRouteName}',
         name: AppRouterConst.onBoardingViewRouteName,
         pageBuilder: (context, state) => CustomTransitionPage(
