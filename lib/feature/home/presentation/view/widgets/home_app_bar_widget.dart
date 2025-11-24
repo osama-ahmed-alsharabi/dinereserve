@@ -32,7 +32,7 @@ class HomeAppBarWidget extends StatelessWidget {
           padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: Colors.grey[300],
+            color: AppColors.thirdColor,
             border: Border.all(color: Colors.white),
           ),
           child: SvgPicture.asset(AppAsset.imagesNotifications, height: 25),

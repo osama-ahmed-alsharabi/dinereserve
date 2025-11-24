@@ -3,7 +3,7 @@ import 'package:dinereserve/core/utils/app_const.dart';
 import 'package:flutter/material.dart';
 ThemeData light({Color color = AppColors.primaryColor}) => ThemeData(
       fontFamily: AppConst.fontFamily,
-      scaffoldBackgroundColor: Color(0xffF7F9FA),
+      scaffoldBackgroundColor: Color(0xffF5F5F5),
       primaryColor: color,
       secondaryHeaderColor:AppColors.secondaryColor,
       disabledColor: const Color(0xFFBABFC4),
