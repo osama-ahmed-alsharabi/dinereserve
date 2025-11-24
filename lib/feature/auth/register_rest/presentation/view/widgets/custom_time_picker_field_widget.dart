@@ -9,7 +9,7 @@ class CustomTimePickerFieldWidget extends StatelessWidget {
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final double? padding;
-
+  final Function(String)? onChanged;
   const CustomTimePickerFieldWidget({
     super.key,
     required this.label,
@@ -17,7 +17,7 @@ class CustomTimePickerFieldWidget extends StatelessWidget {
     required this.icon,
     required this.controller,
     this.validator,
-    this.padding,
+    this.padding, this.onChanged,
   });
 
   Future<void> _pickTime(BuildContext context) async {
@@ -49,6 +49,7 @@ class CustomTimePickerFieldWidget extends StatelessWidget {
             onTap: () => _pickTime(context),
             child: AbsorbPointer(
               child: TextFormField(
+                onChanged: onChanged,
                 controller: controller,
                 validator: validator,
                 cursorColor: Colors.white,

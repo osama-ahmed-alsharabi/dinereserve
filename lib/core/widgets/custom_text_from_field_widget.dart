@@ -9,6 +9,8 @@ class CustomTextFromFieldWidget extends StatelessWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final double? padding;
+  final bool readOnly;
+  final Function(String)? onChanged;
   const CustomTextFromFieldWidget({
     super.key,
     required this.label,
@@ -18,6 +20,8 @@ class CustomTextFromFieldWidget extends StatelessWidget {
     this.controller,
     this.validator,
     this.padding,
+    this.readOnly = false,
+    this.onChanged,
   });
 
   @override
@@ -37,6 +41,8 @@ class CustomTextFromFieldWidget extends StatelessWidget {
             ),
           ),
           TextFormField(
+            onChanged: onChanged,
+            readOnly: readOnly,
             validator: validator,
             controller: controller,
             keyboardType: keyboardType,

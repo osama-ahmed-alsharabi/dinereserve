@@ -37,6 +37,20 @@ class RestaurantModel {
   @HiveField(10)
   final String? ownerId;
 
+  // NEW FIELDS ↓↓↓
+  @HiveField(11)
+  final List<String> images; // max 5 URLs
+
+  @HiveField(12)
+  final List<String> features; // restaurant features
+
+  @HiveField(13)
+  final List<String> menu; // restaurant menu items
+
+  @HiveField(14)
+  final String? logo; // restaurant logo
+  // ↑↑↑ NEW
+
   RestaurantModel({
     this.restaurantId,
     required this.restaurantName,
@@ -49,6 +63,10 @@ class RestaurantModel {
     this.fakeEmail,
     this.password,
     this.ownerId,
+    this.images = const [],
+    this.features = const [],
+    this.menu = const [],
+    this.logo,
   });
 
   /// Convert FROM Supabase
@@ -65,6 +83,10 @@ class RestaurantModel {
       fakeEmail: map["fake_email"],
       password: map["password"],
       ownerId: map["owner_id"],
+      images: List<String>.from(map["images"] ?? []),
+      features: List<String>.from(map["features"] ?? []),
+      menu: List<String>.from(map["menu"] ?? []),
+      logo: map["logo"],
     );
   }
 
@@ -81,6 +103,10 @@ class RestaurantModel {
       "fake_email": fakeEmail,
       "password": password,
       "owner_id": ownerId,
+      "images": images,
+      "features": features,
+      "menu": menu,
+      "logo": logo,
     };
   }
 
@@ -97,6 +123,10 @@ class RestaurantModel {
     String? fakeEmail,
     String? password,
     String? ownerId,
+    List<String>? images,
+    List<String>? features,
+    List<String>? menu,
+    String? logo,
   }) {
     return RestaurantModel(
       restaurantId: restaurantId ?? this.restaurantId,
@@ -110,6 +140,10 @@ class RestaurantModel {
       fakeEmail: fakeEmail ?? this.fakeEmail,
       password: password ?? this.password,
       ownerId: ownerId ?? this.ownerId,
+      images: images ?? this.images,
+      features: features ?? this.features,
+      menu: menu ?? this.menu,
+      logo: logo ?? this.logo,
     );
   }
 }

@@ -28,13 +28,16 @@ class RestaurantModelAdapter extends TypeAdapter<RestaurantModel> {
       fakeEmail: fields[8] as String?,
       password: fields[9] as String?,
       ownerId: fields[10] as String?,
+      images: (fields[11] as List).cast<String>(),
+      features: (fields[12] as List).cast<String>(),
+      menu: (fields[13] as List).cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, RestaurantModel obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(14)
       ..writeByte(0)
       ..write(obj.restaurantId)
       ..writeByte(1)
@@ -56,7 +59,13 @@ class RestaurantModelAdapter extends TypeAdapter<RestaurantModel> {
       ..writeByte(9)
       ..write(obj.password)
       ..writeByte(10)
-      ..write(obj.ownerId);
+      ..write(obj.ownerId)
+      ..writeByte(11)
+      ..write(obj.images)
+      ..writeByte(12)
+      ..write(obj.features)
+      ..writeByte(13)
+      ..write(obj.menu);
   }
 
   @override

@@ -54,6 +54,7 @@ class _LoginRestFormWidgetState extends State<LoginRestFormWidget> {
                 label: "Phone Number",
                 hint: "Enter Restaurant Phone Number",
                 icon: Icons.phone,
+                keyboardType: TextInputType.phone,
               ),
               SizedBox(height: 15),
               CustomTextFromFieldPassword(
@@ -66,7 +67,9 @@ class _LoginRestFormWidgetState extends State<LoginRestFormWidget> {
               ),
               Row(
                 children: [
-                  Text("Your Restaurant Do not Have an Account? "),
+                  Expanded(
+                    child: Text("Your Restaurant Do not Have an Account? "),
+                  ),
                   TextButton(
                     onPressed: () {
                       context.pushNamed(
