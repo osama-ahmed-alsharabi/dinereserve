@@ -4,19 +4,17 @@ import 'package:dinereserve/core/utils/app_text_style.dart';
 import 'package:dinereserve/core/widgets/custom_button_widget.dart';
 import 'package:dinereserve/core/widgets/custom_text_from_field_password.dart';
 import 'package:dinereserve/core/widgets/custom_text_from_field_widget.dart';
-import 'package:dinereserve/feature/auth/login/presentation/view_model/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginFormWidget extends StatefulWidget {
-  const LoginFormWidget({super.key});
+class LoginRestFormWidget extends StatefulWidget {
+  const LoginRestFormWidget({super.key});
 
   @override
-  State<LoginFormWidget> createState() => _LoginFormWidgetState();
+  State<LoginRestFormWidget> createState() => _LoginRestFormWidgetState();
 }
 
-class _LoginFormWidgetState extends State<LoginFormWidget> {
+class _LoginRestFormWidgetState extends State<LoginRestFormWidget> {
   GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   TextEditingController phoneController = TextEditingController();
@@ -42,14 +40,14 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
             children: [
               SizedBox(height: 50),
               Text("Welcome 👋🏻", style: context.textStyle.text20Mediam),
-              Text("Login Now ..", style: context.textStyle.text16Regular),
+              Text("Login Your Restaurant Now ..", style: context.textStyle.text16Regular),
               SizedBox(height: 15),
               CustomTextFromFieldWidget(
                 controller: phoneController,
                 validator: (value) => ValidatorHelper.validateSaudiPhone(value),
                 padding: 0,
                 label: "Phone Number",
-                hint: "Enter Your Phone Number",
+                hint: "Enter Restaurant Phone Number",
                 icon: Icons.phone,
               ),
               SizedBox(height: 15),
@@ -58,15 +56,17 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 validator: (value) => ValidatorHelper.validatePassword(value),
                 padding: 0,
                 label: "Password",
-                hint: "Enter Your Password",
+                hint: "Enter Restaurant Password",
                 icon: Icons.lock,
               ),
               Row(
                 children: [
-                  Text("You Do not Have an Account? "),
+                  Text("Your Restaurant Do not Have an Account? "),
                   TextButton(
                     onPressed: () {
-                      context.pushNamed(AppRouterConst.registerViewRouteName);
+                      context.pushNamed(
+                        AppRouterConst.registerRestViewRouteName,
+                      );
                     },
                     child: Text("Register Now"),
                   ),
@@ -76,26 +76,16 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               CustomButtonWidget(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    BlocProvider.of<LoginCubit>(context).login(
-                      phone: phoneController.text,
-                      password: passwordController.text,
-                    );
+                    // BlocProvider.of<LoginCubit>(context).login(
+                    //   phone: phoneController.text,
+                    //   password: passwordController.text,
+                    // );
                   } else {
                     autovalidateMode = AutovalidateMode.always;
                     setState(() {});
                   }
                 },
                 child: Text("Login "),
-              ),
-              SizedBox(height: 10),
-              TextButton(
-                onPressed: () {
-                  context.pushNamed(AppRouterConst.loginRestViewRouteName);
-                },
-                child: Text(
-                  "Login as a Restaurant",
-                  style: context.textStyle.text20Mediam,
-                ),
               ),
             ],
           ),

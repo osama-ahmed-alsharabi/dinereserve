@@ -40,8 +40,12 @@ class LoginBodyWidget extends StatelessWidget {
           child: LoadingWidget(
             isLoading: state is LoginLoading,
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [LoginBackgroundWidget(), LoginFormWidget()],
+              children: [
+                LoginBackgroundWidget(),
+                LoginFormWidget(),
+              ],
             ),
           ),
         );
