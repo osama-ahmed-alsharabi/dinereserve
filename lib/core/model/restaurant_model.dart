@@ -1,16 +1,41 @@
+import 'package:hive/hive.dart';
+
+part 'restaurant_model.g.dart';
+
+@HiveType(typeId: 2)
 class RestaurantModel {
+  @HiveField(0)
   final String? restaurantId;
+
+  @HiveField(1)
   final String restaurantName;
+
+  @HiveField(2)
   final String restaurantPhone;
+
+  @HiveField(3)
   final String restaurantType;
+
+  @HiveField(4)
   final String openingTime;
+
+  @HiveField(5)
   final String closingTime;
+
+  @HiveField(6)
   final String location;
+
+  @HiveField(7)
   final int tablesCount;
 
+  @HiveField(8)
   final String? fakeEmail;
+
+  @HiveField(9)
   final String? password;
-  final String? ownerId; // auth.users id (owner account)
+
+  @HiveField(10)
+  final String? ownerId;
 
   RestaurantModel({
     this.restaurantId,

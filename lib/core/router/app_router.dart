@@ -1,5 +1,6 @@
 import 'package:dinereserve/core/router/app_router_const.dart';
 import 'package:dinereserve/core/router/page_transitions.dart';
+import 'package:dinereserve/core/widgets/main_rest_view.dart';
 import 'package:dinereserve/core/widgets/main_view.dart';
 import 'package:dinereserve/feature/auth/login/presentation/view/login_view.dart';
 import 'package:dinereserve/feature/auth/login_rest/presentation/view/login_rest.dart';
@@ -82,6 +83,15 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
           child: const LoginRestView(),
+          transitionsBuilder: PageTransitions.noTransition,
+        ),
+      ),
+      GoRoute(
+        path: '/${AppRouterConst.mainRestViewRouteName}',
+        name: AppRouterConst.mainRestViewRouteName,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const MainRestView(),
           transitionsBuilder: PageTransitions.noTransition,
         ),
       ),
