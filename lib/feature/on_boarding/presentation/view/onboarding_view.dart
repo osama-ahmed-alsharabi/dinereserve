@@ -112,7 +112,7 @@ class _OnboardingViewState extends State<OnboardingView>
   }
 
   void _completeOnboarding() {
-    context.goNamed(AppRouterConst.registerViewRouteName);
+    context.goNamed(AppRouterConst.loginViewRouteName);
   }
 
   void _skipOnboarding() {

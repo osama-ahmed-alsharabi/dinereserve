@@ -1,5 +1,6 @@
 import 'package:dinereserve/core/utils/app_asset.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class RegisterBackgroundWidget extends StatelessWidget {
   const RegisterBackgroundWidget({super.key});
@@ -22,7 +23,9 @@ class RegisterBackgroundWidget extends StatelessWidget {
             backgroundColor: Colors.white38,
             child: Center(
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.pop();
+                },
                 icon: Icon(Icons.arrow_back_ios),
               ),
             ),

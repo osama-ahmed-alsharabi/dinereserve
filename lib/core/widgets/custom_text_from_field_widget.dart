@@ -8,6 +8,7 @@ class CustomTextFromFieldWidget extends StatelessWidget {
   final TextInputType? keyboardType;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final double? padding;
   const CustomTextFromFieldWidget({
     super.key,
     required this.label,
@@ -16,12 +17,13 @@ class CustomTextFromFieldWidget extends StatelessWidget {
     this.keyboardType,
     this.controller,
     this.validator,
+    this.padding,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: padding ?? 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -38,7 +40,7 @@ class CustomTextFromFieldWidget extends StatelessWidget {
             decoration: InputDecoration(
               fillColor: AppColors.primaryColor,
               filled: true,
-              
+
               enabledBorder: textBorder(),
               focusedBorder: textBorder(),
               focusedErrorBorder: textBorder(),
@@ -57,8 +59,8 @@ class CustomTextFromFieldWidget extends StatelessWidget {
 
   OutlineInputBorder textBorder() {
     return OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(color: Colors.white),
-            );
+      borderRadius: BorderRadius.circular(25),
+      borderSide: BorderSide(color: Colors.white),
+    );
   }
 }

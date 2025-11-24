@@ -8,6 +8,7 @@ class CustomTextFromFieldPassword extends StatefulWidget {
   final TextInputType? keyboardType;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final double? padding;
   const CustomTextFromFieldPassword({
     super.key,
     required this.label,
@@ -16,6 +17,7 @@ class CustomTextFromFieldPassword extends StatefulWidget {
     this.keyboardType,
     this.controller,
     this.validator,
+    this.padding,
   });
 
   @override
@@ -29,7 +31,7 @@ class _CustomTextFromFieldPasswordState
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: widget.padding ?? 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

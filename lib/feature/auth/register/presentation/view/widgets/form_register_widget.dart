@@ -1,6 +1,6 @@
 import 'package:dinereserve/core/helpers/validator_helper.dart';
 import 'package:dinereserve/core/model/user_model.dart';
-import 'package:dinereserve/core/utils/app_colors.dart';
+import 'package:dinereserve/core/widgets/custom_button_widget.dart';
 import 'package:dinereserve/core/widgets/custom_text_from_field_password.dart';
 import 'package:dinereserve/core/widgets/custom_text_from_field_widget.dart';
 import 'package:dinereserve/feature/auth/register/presentation/view_model/cubit/register_cubit.dart';
@@ -100,33 +100,24 @@ class _FormRegisterWidgetState extends State<FormRegisterWidget> {
           const SizedBox(height: 30),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: SizedBox(
-              height: 45,
-              width: double.infinity,
-
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.secondaryColor,
-                  foregroundColor: Colors.white,
-                ),
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    BlocProvider.of<RegisterCubit>(context).register(
-                      UserModel(
-                        fullName: nameController.text,
-                        phoneNumber: phoneController.text,
-                        fakeEmail: "user_${phoneController.text}@auth.local",
-                        age: ageController.text,
-                        password: passwordController.text,
-                      ),
-                    );
-                  } else {
-                    autovalidateMode = AutovalidateMode.always;
-                    setState(() {});
-                  }
-                },
-                child: Text("Register Now"),
-              ),
+            child: CustomButtonWidget(
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  BlocProvider.of<RegisterCubit>(context).register(
+                    UserModel(
+                      fullName: nameController.text,
+                      phoneNumber: phoneController.text,
+                      fakeEmail: "user_${phoneController.text}@auth.local",
+                      age: ageController.text,
+                      password: passwordController.text,
+                    ),
+                  );
+                } else {
+                  autovalidateMode = AutovalidateMode.always;
+                  setState(() {});
+                }
+              },
+              child: Text("Register Now"),
             ),
           ),
           SizedBox(height: 30),

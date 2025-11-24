@@ -4,4 +4,5 @@ abstract class AppRouterConst {
   static const String mainonBoardingViewRouteName = "main_onBoarding";
   static const String onBoardingViewRouteName = "onBoarding";
   static const String registerViewRouteName = "register";
+  static const String loginViewRouteName = "login";
 }
