@@ -1,3 +1,4 @@
+import 'package:dinereserve/core/helpers/hive_init.dart';
 import 'package:dinereserve/core/helpers/service_locator.dart';
 import 'package:dinereserve/core/router/app_router.dart';
 import 'package:dinereserve/core/theme/light_theme.dart';
@@ -11,6 +12,7 @@ void main() async {
     anonKey:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxdmFna3BoanFjZHFucnB2ZWJ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM4NDMzMjAsImV4cCI6MjA3OTQxOTMyMH0.coGyz5okv_PbJH01lDSb10tqcRbUKz_wYeNas_M9eCI',
   );
+  await hiveInit();
   await setupServiceLocator();
   runApp(const Dinereserve());
 }

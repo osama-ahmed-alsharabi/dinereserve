@@ -1,3 +1,4 @@
+import 'package:dinereserve/core/services/user_local_service.dart';
 import 'package:dinereserve/core/utils/app_asset.dart';
 import 'package:dinereserve/core/utils/app_colors.dart';
 import 'package:dinereserve/core/utils/app_text_style.dart';
@@ -20,7 +21,10 @@ class HomeAppBarWidget extends StatelessWidget {
                 color: AppColors.primaryColor,
               ),
             ),
-            Text("Name", style: context.textStyle.text16Regular),
+            Text(
+              UserLocalService().getUser()!.fullName,
+              style: context.textStyle.text16Regular,
+            ),
           ],
         ),
         Spacer(),
@@ -29,9 +33,7 @@ class HomeAppBarWidget extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             color: Colors.grey[300],
-            border: Border.all(
-              color: Colors.white
-            )
+            border: Border.all(color: Colors.white),
           ),
           child: SvgPicture.asset(AppAsset.imagesNotifications, height: 25),
         ),

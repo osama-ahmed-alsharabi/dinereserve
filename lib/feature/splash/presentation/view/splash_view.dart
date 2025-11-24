@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:dinereserve/core/model/user_model.dart';
 import 'package:dinereserve/core/router/app_router_const.dart';
+import 'package:dinereserve/core/services/user_local_service.dart';
 import 'package:dinereserve/core/utils/app_asset.dart';
 import 'package:dinereserve/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +83,12 @@ class _DineReserveViewState extends State<DineReserveView> {
     super.initState();
     Future.delayed(const Duration(seconds: 1), () {
       if (!mounted) return;
-      context.goNamed(AppRouterConst.onBoardingViewRouteName);
+      UserModel? user = UserLocalService().getUser();
+      if (user == null) {
+        context.goNamed(AppRouterConst.onBoardingViewRouteName);
+      }else{
+        context.goNamed(AppRouterConst.mainViewRouteName);
+      }
     });
   }
 

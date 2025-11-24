@@ -27,7 +27,7 @@ class LoginBodyWidget extends StatelessWidget {
         if (state is LoginSuccess) {
           CustomSnackBar.customSnackBar(
             context: context,
-            title: "Welcome",
+            title: "Welcome ${state.userName}",
             color: Colors.green,
           );
           context.pushReplacementNamed(AppRouterConst.mainViewRouteName);
