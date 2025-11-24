@@ -4,7 +4,9 @@ import 'package:dinereserve/core/utils/app_text_style.dart';
 import 'package:dinereserve/core/widgets/custom_button_widget.dart';
 import 'package:dinereserve/core/widgets/custom_text_from_field_password.dart';
 import 'package:dinereserve/core/widgets/custom_text_from_field_widget.dart';
+import 'package:dinereserve/feature/auth/login/presentation/view_model/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginFormWidget extends StatefulWidget {
@@ -43,6 +45,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               Text("Login Now ..", style: context.textStyle.text16Regular),
               SizedBox(height: 15),
               CustomTextFromFieldWidget(
+                controller: phoneController,
                 validator: (value) => ValidatorHelper.validateSaudiPhone(value),
                 padding: 0,
                 label: "Phone Number",
@@ -51,6 +54,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               ),
               SizedBox(height: 15),
               CustomTextFromFieldPassword(
+                controller: passwordController,
                 validator: (value) => ValidatorHelper.validatePassword(value),
                 padding: 0,
                 label: "Password",
@@ -69,7 +73,20 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 ],
               ),
               SizedBox(height: 35),
-              CustomButtonWidget(onPressed: () {}, child: Text("Login ")),
+              CustomButtonWidget(
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    BlocProvider.of<LoginCubit>(context).login(
+                      phone: phoneController.text,
+                      password: passwordController.text,
+                    );
+                  } else {
+                    autovalidateMode = AutovalidateMode.always;
+                    setState(() {});
+                  }
+                },
+                child: Text("Login "),
+              ),
             ],
           ),
         ),

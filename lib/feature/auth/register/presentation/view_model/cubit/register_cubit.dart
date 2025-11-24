@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dinereserve/core/errors/supabase_error_handler.dart';
 import 'package:dinereserve/core/model/user_model.dart';
 import 'package:dinereserve/feature/auth/register/presentation/view_model/cubit/register_state.dart';
@@ -28,6 +30,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       });
       emit(RegisterSuccess());
     } catch (e) {
+      log(e.toString());  
       final errorMessage = SupabaseErrorHandler.parseAuthException(e);
       emit(RegisterFailuer(errorMessage: errorMessage));
     }
