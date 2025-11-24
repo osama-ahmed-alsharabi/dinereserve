@@ -10,6 +10,8 @@ class AppAsset {
 
   static const String imagesLogo = "assets/images/logo.png";
 
+  static const String imagesNotifications = "assets/images/notifications.svg";
+
   static const String imagesRegisterBackground = "assets/images/register_background.png";
 
   static const String imagesSecondOnboardingImage = "assets/images/second_onboarding_image.png";
