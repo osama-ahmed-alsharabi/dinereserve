@@ -4,7 +4,9 @@ import 'package:dinereserve/core/utils/app_text_style.dart';
 import 'package:dinereserve/core/widgets/custom_button_widget.dart';
 import 'package:dinereserve/core/widgets/custom_text_from_field_password.dart';
 import 'package:dinereserve/core/widgets/custom_text_from_field_widget.dart';
+import 'package:dinereserve/feature/auth/login_rest/presentation/view_model/cubit/login_restaurant_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginRestFormWidget extends StatefulWidget {
@@ -40,7 +42,10 @@ class _LoginRestFormWidgetState extends State<LoginRestFormWidget> {
             children: [
               SizedBox(height: 50),
               Text("Welcome 👋🏻", style: context.textStyle.text20Mediam),
-              Text("Login Your Restaurant Now ..", style: context.textStyle.text16Regular),
+              Text(
+                "Login Your Restaurant Now ..",
+                style: context.textStyle.text16Regular,
+              ),
               SizedBox(height: 15),
               CustomTextFromFieldWidget(
                 controller: phoneController,
@@ -76,10 +81,10 @@ class _LoginRestFormWidgetState extends State<LoginRestFormWidget> {
               CustomButtonWidget(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    // BlocProvider.of<LoginCubit>(context).login(
-                    //   phone: phoneController.text,
-                    //   password: passwordController.text,
-                    // );
+                    BlocProvider.of<LoginRestaurantCubit>(context).login(
+                      phone: phoneController.text,
+                      password: passwordController.text,
+                    );
                   } else {
                     autovalidateMode = AutovalidateMode.always;
                     setState(() {});

@@ -29,7 +29,7 @@ class RegisterRestBlocConsumerWidget extends StatelessWidget {
             title: "Registeration Done Successfully",
             color: Colors.green,
           );
-          context.pushReplacementNamed(AppRouterConst.loginViewRouteName);
+          context.pushReplacementNamed(AppRouterConst.loginRestViewRouteName);
         }
       },
       builder: (context, state) {
