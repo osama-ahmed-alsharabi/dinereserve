@@ -3,6 +3,7 @@ import 'package:dinereserve/core/router/page_transitions.dart';
 import 'package:dinereserve/core/widgets/main_view.dart';
 import 'package:dinereserve/feature/auth/login/presentation/view/login_view.dart';
 import 'package:dinereserve/feature/auth/register/presentation/view/register_view.dart';
+import 'package:dinereserve/feature/auth/register_rest/presentation/view/register_rest_view.dart';
 import 'package:dinereserve/feature/on_boarding/presentation/view/onboarding_view.dart';
 import 'package:dinereserve/feature/splash/presentation/view/splash_view.dart';
 import 'package:go_router/go_router.dart';
@@ -62,6 +63,15 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
           child: const MainView(),
+          transitionsBuilder: PageTransitions.noTransition,
+        ),
+      ),
+      GoRoute(
+        path: '/${AppRouterConst.registerRestViewRouteName}',
+        name: AppRouterConst.registerRestViewRouteName,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const RegisterRestView(),
           transitionsBuilder: PageTransitions.noTransition,
         ),
       ),

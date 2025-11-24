@@ -1,3 +1,4 @@
+import 'package:dinereserve/core/router/app_router_const.dart';
 import 'package:dinereserve/core/utils/app_text_style.dart';
 import 'package:dinereserve/core/widgets/custom_snack_bar.dart';
 import 'package:dinereserve/core/widgets/loading_widget.dart';
@@ -53,6 +54,14 @@ class RegiserBodyWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
                     FormRegisterWidget(),
+                    TextButton(
+                      onPressed: () {
+                        context.pushNamed(
+                          AppRouterConst.registerRestViewRouteName,
+                        );
+                      },
+                      child: Text("Create an account as a restaurant"),
+                    ),
                   ],
                 ),
               ),
