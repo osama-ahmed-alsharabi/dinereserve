@@ -1,10 +1,13 @@
 import 'package:dinereserve/core/helpers/validator_helper.dart';
+import 'package:dinereserve/core/model/restaurant_model.dart';
 import 'package:dinereserve/core/widgets/custom_button_widget.dart';
 import 'package:dinereserve/core/widgets/custom_text_from_field_password.dart';
 import 'package:dinereserve/core/widgets/custom_text_from_field_widget.dart';
 import 'package:dinereserve/feature/auth/register_rest/presentation/view/widgets/custom_dropdown_field_widget.dart';
 import 'package:dinereserve/feature/auth/register_rest/presentation/view/widgets/custom_time_picker_field_widget.dart';
+import 'package:dinereserve/feature/auth/register_rest/presentation/view_model/cubit/register_restaurant_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RestaurantRegisterFormWidget extends StatefulWidget {
   const RestaurantRegisterFormWidget({super.key});
@@ -20,6 +23,7 @@ class _RestaurantRegisterFormWidgetState
   AutovalidateMode autoValidate = AutovalidateMode.disabled;
 
   TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   TextEditingController tablesCountController = TextEditingController();
 
@@ -46,6 +50,7 @@ class _RestaurantRegisterFormWidgetState
     confirmPasswordController.dispose();
     passwordController.dispose();
     nameController.dispose();
+    phoneController.dispose();
     locationController.dispose();
     tablesCountController.dispose();
     openTimeController.dispose();
@@ -69,6 +74,15 @@ class _RestaurantRegisterFormWidgetState
             hint: "Enter restaurant name...",
             label: "Restaurant Name",
             icon: Icons.store,
+          ),
+          const SizedBox(height: 12),
+          CustomTextFromFieldWidget(
+            controller: phoneController,
+            validator: (v) => ValidatorHelper.validateSaudiPhone(v),
+            hint: "Enter restaurant Phone...",
+            label: "Restaurant Phone",
+            icon: Icons.phone,
+            keyboardType: TextInputType.number,
           ),
           const SizedBox(height: 12),
           CustomDropdownFieldWidget(
@@ -127,24 +141,22 @@ class _RestaurantRegisterFormWidgetState
           ),
           const SizedBox(height: 12),
           CustomTextFromFieldPassword(
-            controller: tablesCountController,
+            controller: passwordController,
             validator: (v) => ValidatorHelper.validatePassword(v),
-            hint: "Enter number of tables...",
-            label: "Tables Count",
+            hint: "Enter Password...",
+            label: "Password",
             icon: Icons.lock,
-            keyboardType: TextInputType.number,
           ),
           const SizedBox(height: 12),
           CustomTextFromFieldPassword(
-            controller: tablesCountController,
+            controller: confirmPasswordController,
             validator: (v) => ValidatorHelper.validateConfirmPassword(
               v,
               passwordController.text,
             ),
-            hint: "Enter number of tables...",
-            label: "Tables Count",
+            hint: "Enter Confirm Password...",
+            label: "Confirm Password",
             icon: Icons.lock,
-            keyboardType: TextInputType.number,
           ),
           const SizedBox(height: 28),
           Padding(
@@ -152,7 +164,18 @@ class _RestaurantRegisterFormWidgetState
             child: CustomButtonWidget(
               onPressed: () {
                 if (formKey.currentState!.validate()) {
-                  // UI ONLY — No Logic Yet
+                  BlocProvider.of<RegisterRestaurantCubit>(context).register(
+                    RestaurantModel(
+                      restaurantName: nameController.text,
+                      restaurantPhone: phoneController.text,
+                      restaurantType: selectedType!,
+                      openingTime: openTimeController.text,
+                      closingTime: closeTimeController.text,
+                      location: locationController.text,
+                      tablesCount: int.parse(tablesCountController.text),
+                      password: passwordController.text,
+                    ),
+                  );
                 } else {
                   autoValidate = AutovalidateMode.always;
                   setState(() {});

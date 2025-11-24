@@ -29,7 +29,12 @@ class CustomTextFromFieldWidget extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-            child: Text(label, style: context.textStyle.text16Regular),
+            child: Text(
+              label,
+              style: context.textStyle.text16Regular.copyWith(
+                color: AppColors.primaryColor,
+              ),
+            ),
           ),
           TextFormField(
             validator: validator,

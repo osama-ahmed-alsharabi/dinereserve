@@ -27,8 +27,10 @@ class CustomTimePickerFieldWidget extends StatelessWidget {
     );
 
     if (time != null) {
-      final formatted = time.format(context);
-      controller.text = formatted;
+      if (context.mounted) {
+        final formatted = time.format(context);
+        controller.text = formatted;
+      }
     }
   }
 

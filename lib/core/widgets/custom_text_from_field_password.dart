@@ -37,7 +37,12 @@ class _CustomTextFromFieldPasswordState
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-            child: Text(widget.label, style: context.textStyle.text16Regular),
+            child: Text(
+              widget.label,
+              style: context.textStyle.text16Regular.copyWith(
+                color: AppColors.primaryColor,
+              ),
+            ),
           ),
           TextFormField(
             obscureText: showPassword,
