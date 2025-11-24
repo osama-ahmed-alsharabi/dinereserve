@@ -42,6 +42,8 @@ dependencies:
   supabase_flutter: ^2.10.3
   shared_preferences: ^2.5.3
   flutter_bloc: ^9.1.1
+  get_it: ^9.1.0
+  lottie: ^3.3.1
 
 dev_dependencies:
   flutter_test:
@@ -97,6 +99,7 @@ flutter:
   # see https://flutter.dev/to/font-from-package
   assets:
     - assets/images/
+    - assets/lottie/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -137,6 +140,7 @@ flutter_launcher_icons:
 flutter_assets:
   assets_path:
     - assets/images/
+    - assets/lottie/
   output_path: lib/core/utils
   filename: app_asset.dart
   field_prefix: null

@@ -15,5 +15,7 @@ class AppAsset {
   static const String imagesSecondOnboardingImage = "assets/images/second_onboarding_image.png";
 
   static const String imagesThirdOnboardingImage = "assets/images/third_onboarding_image.png";
+
+  static const String lottieLoading = "assets/lottie/loading.json";
 }
 

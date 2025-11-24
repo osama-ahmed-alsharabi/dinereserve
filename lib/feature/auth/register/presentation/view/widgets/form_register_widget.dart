@@ -1,8 +1,11 @@
 import 'package:dinereserve/core/helpers/validator_helper.dart';
+import 'package:dinereserve/core/model/user_model.dart';
 import 'package:dinereserve/core/utils/app_colors.dart';
 import 'package:dinereserve/core/widgets/custom_text_from_field_password.dart';
 import 'package:dinereserve/core/widgets/custom_text_from_field_widget.dart';
+import 'package:dinereserve/feature/auth/register/presentation/view_model/cubit/register_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FormRegisterWidget extends StatefulWidget {
   const FormRegisterWidget({super.key});
@@ -38,7 +41,8 @@ class _FormRegisterWidgetState extends State<FormRegisterWidget> {
       child: Column(
         children: [
           CustomTextFromFieldWidget(
-            validator: (value) => ValidatorHelper.validateFullName("Full Name"),
+            validator: (value) => ValidatorHelper.validateFullName(value),
+
             controller: nameController,
             hint: "Enter your full name...",
             label: "Full Name",
@@ -107,6 +111,15 @@ class _FormRegisterWidgetState extends State<FormRegisterWidget> {
                 ),
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
+                    BlocProvider.of<RegisterCubit>(context).register(
+                      UserModel(
+                        fullName: nameController.text,
+                        phoneNumber: phoneController.text,
+                        fakeEmail: "user_${phoneController.text}@auth.local",
+                        age: ageController.text,
+                        password: passwordController.text,
+                      ),
+                    );
                   } else {
                     autovalidateMode = AutovalidateMode.always;
                     setState(() {});

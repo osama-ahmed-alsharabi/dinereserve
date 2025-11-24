@@ -25,7 +25,7 @@ class CustomTextFromFieldPassword extends StatefulWidget {
 
 class _CustomTextFromFieldPasswordState
     extends State<CustomTextFromFieldPassword> {
-  bool showPassword = false;
+  bool showPassword = true;
   @override
   Widget build(BuildContext context) {
     return Padding(
