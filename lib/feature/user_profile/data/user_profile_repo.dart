@@ -6,6 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class UserProfileRepo {
   Future<Either<Failure, UserModel>> getUserProfile();
+  Future<Either<Failure, void>> updateUserProfile(UserModel user);
   Future<Either<Failure, void>> logout();
 }
 
@@ -47,6 +48,30 @@ class UserProfileRepoImpl implements UserProfileRepo {
       await supabaseClient.auth.signOut();
       return right(null);
     } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateUserProfile(UserModel user) async {
+    try {
+      final currentUser = supabaseClient.auth.currentUser;
+      if (currentUser == null) {
+        return left(ServerFailure("User not authenticated"));
+      }
+
+      await supabaseClient
+          .from('profiles')
+          .update({"full_name": user.fullName, "age": user.age})
+          .eq('id', currentUser.id);
+
+      return right(null);
+    } catch (e) {
+      if (e is PostgrestException) {
+        return left(
+          ServerFailure(SupabaseErrorHandler.parseDatabaseException(e)),
+        );
+      }
       return left(ServerFailure(e.toString()));
     }
   }

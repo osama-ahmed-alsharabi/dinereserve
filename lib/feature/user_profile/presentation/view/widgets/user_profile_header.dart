@@ -1,6 +1,10 @@
 import 'package:dinereserve/core/model/user_model.dart';
 import 'package:dinereserve/core/utils/app_colors.dart';
+import 'package:dinereserve/feature/user_profile/presentation/view/edit_user_profile_view.dart';
+import 'package:dinereserve/feature/user_profile/presentation/view_model/user_profile_cubit.dart';
+import 'package:dinereserve/feature/user_profile/presentation/view_model/user_profile_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserProfileHeader extends StatelessWidget {
   final UserModel user;
@@ -42,7 +46,25 @@ class UserProfileHeader extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  // Assuming we can access the user from the cubit state or pass it down
+                  // For now, we'll access it via context.read if available, or pass it.
+                  // A better way is to have UserProfileView pass the user to this widget.
+                  // But since this is a StatelessWidget, we'll use BlocProvider to get the state.
+                  final cubit = context.read<UserProfileCubit>();
+                  final state = cubit.state;
+                  if (state is UserProfileLoaded) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BlocProvider.value(
+                          value: cubit,
+                          child: EditUserProfileView(user: state.user),
+                        ),
+                      ),
+                    );
+                  }
+                },
                 icon: const Icon(Icons.edit, color: Colors.white),
               ),
             ],

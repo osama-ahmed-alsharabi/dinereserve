@@ -26,3 +26,12 @@ class UserProfileLogoutError extends UserProfileState {
   final String errMessage;
   UserProfileLogoutError(this.errMessage);
 }
+
+class UserProfileUpdateLoading extends UserProfileState {}
+
+class UserProfileUpdateSuccess extends UserProfileState {}
+
+class UserProfileUpdateError extends UserProfileState {
+  final String errMessage;
+  UserProfileUpdateError(this.errMessage);
+}
