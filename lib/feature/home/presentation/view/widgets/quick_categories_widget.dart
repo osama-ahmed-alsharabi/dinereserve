@@ -9,10 +9,10 @@ class QuickCategoriesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categories = [
-      {'icon': Icons.restaurant, 'label': 'Restaurants'},
-      {'icon': Icons.local_cafe, 'label': 'Cafes'},
+      {'icon': Icons.restaurant, 'label': 'Restaurant'},
+      {'icon': Icons.local_cafe, 'label': 'Cafe'},
       {'icon': Icons.fastfood, 'label': 'Fast Food'},
-      {'icon': Icons.cake, 'label': 'Sweets'},
+      {'icon': Icons.cake, 'label': 'Sweets Shop'},
     ];
 
     return Column(
