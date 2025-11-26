@@ -11,8 +11,68 @@ class RestaurantCardWidget extends StatelessWidget {
 
   const RestaurantCardWidget({super.key, required this.restaurant});
 
+  bool _isRestaurantOpen() {
+    try {
+      final now = TimeOfDay.now();
+      final open = _parseTime(restaurant.openingTime);
+      final close = _parseTime(restaurant.closingTime);
+
+      final nowMinutes = now.hour * 60 + now.minute;
+      final openMinutes = open.hour * 60 + open.minute;
+      final closeMinutes = close.hour * 60 + close.minute;
+
+      if (closeMinutes < openMinutes) {
+        // Overnight hours (e.g., 18:00 to 02:00)
+        return nowMinutes >= openMinutes || nowMinutes <= closeMinutes;
+      } else {
+        // Standard hours (e.g., 09:00 to 22:00)
+        return nowMinutes >= openMinutes && nowMinutes <= closeMinutes;
+      }
+    } catch (e) {
+      return false; // Default to closed on error
+    }
+  }
+
+  TimeOfDay _parseTime(String time) {
+    try {
+      // Handle 12-hour format (e.g., "12:52 PM")
+      final parts = time.trim().split(' ');
+      if (parts.length == 2) {
+        final timeParts = parts[0].split(':');
+        if (timeParts.length == 2) {
+          int hour = int.parse(timeParts[0]);
+          final minute = int.parse(timeParts[1]);
+          final isPM = parts[1].toUpperCase() == 'PM';
+
+          // Convert to 24-hour format
+          if (isPM && hour != 12) {
+            hour += 12;
+          } else if (!isPM && hour == 12) {
+            hour = 0;
+          }
+
+          return TimeOfDay(hour: hour, minute: minute);
+        }
+      }
+
+      // Fallback: try 24-hour format
+      final parts24 = time.split(':');
+      if (parts24.length == 2) {
+        return TimeOfDay(
+          hour: int.parse(parts24[0]),
+          minute: int.parse(parts24[1]),
+        );
+      }
+    } catch (e) {
+      // Return midnight on error
+    }
+    return const TimeOfDay(hour: 0, minute: 0);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isOpen = _isRestaurantOpen();
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -191,20 +251,63 @@ class RestaurantCardWidget extends StatelessWidget {
                         ),
                         Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
+                            horizontal: 10,
+                            vertical: 6,
                           ),
                           decoration: BoxDecoration(
-                            color: AppColors.primaryColor,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: const Text(
-                            "Book",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
+                            gradient: LinearGradient(
+                              colors: isOpen
+                                  ? [
+                                      const Color(0xFF4CAF50),
+                                      const Color(0xFF66BB6A),
+                                    ]
+                                  : [
+                                      const Color(0xFFEF5350),
+                                      const Color(0xFFE57373),
+                                    ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
                             ),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: isOpen
+                                    ? const Color(0xFF4CAF50).withAlpha(102)
+                                    : const Color(0xFFEF5350).withAlpha(102),
+                                blurRadius: 8,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                width: 6,
+                                height: 6,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.white.withAlpha(128),
+                                      blurRadius: 4,
+                                      spreadRadius: 1,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 6),
+                              Text(
+                                isOpen ? "Open" : "Closed",
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 0.5,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],

@@ -493,7 +493,6 @@ class ProfileRestaurantView extends StatelessWidget {
       final now = TimeOfDay.now();
       final open = _parseTime(openTime);
       final close = _parseTime(closeTime);
-
       final nowMinutes = now.hour * 60 + now.minute;
       final openMinutes = open.hour * 60 + open.minute;
       final closeMinutes = close.hour * 60 + close.minute;
@@ -511,7 +510,38 @@ class ProfileRestaurantView extends StatelessWidget {
   }
 
   TimeOfDay _parseTime(String time) {
-    final parts = time.split(":");
-    return TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));
+    try {
+      // Handle 12-hour format (e.g., "12:52 PM")
+      final parts = time.trim().split(' ');
+      if (parts.length == 2) {
+        final timeParts = parts[0].split(':');
+        if (timeParts.length == 2) {
+          int hour = int.parse(timeParts[0]);
+          final minute = int.parse(timeParts[1]);
+          final isPM = parts[1].toUpperCase() == 'PM';
+
+          // Convert to 24-hour format
+          if (isPM && hour != 12) {
+            hour += 12;
+          } else if (!isPM && hour == 12) {
+            hour = 0;
+          }
+
+          return TimeOfDay(hour: hour, minute: minute);
+        }
+      }
+
+      // Fallback: try 24-hour format
+      final parts24 = time.split(':');
+      if (parts24.length == 2) {
+        return TimeOfDay(
+          hour: int.parse(parts24[0]),
+          minute: int.parse(parts24[1]),
+        );
+      }
+    } catch (e) {
+      // Return midnight on error
+    }
+    return const TimeOfDay(hour: 0, minute: 0);
   }
 }
