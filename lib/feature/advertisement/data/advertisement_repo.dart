@@ -14,6 +14,9 @@ abstract class AdvertisementRepo {
     String restaurantId,
   );
 
+  Future<Either<Failure, List<AdvertisementModel>>>
+  fetchAllActiveAdvertisements();
+
   Future<Either<Failure, void>> deleteAdvertisement(
     String adId,
     String imageUrl,
@@ -75,6 +78,27 @@ class AdvertisementRepoImpl implements AdvertisementRepo {
           .from('advertisements')
           .select()
           .eq('restaurant_id', restaurantId)
+          .order('created_at', ascending: false);
+
+      final ads = (data as List)
+          .map((e) => AdvertisementModel.fromMap(e))
+          .toList();
+      return right(ads);
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<AdvertisementModel>>>
+  fetchAllActiveAdvertisements() async {
+    try {
+      final now = DateTime.now().toIso8601String();
+      final data = await supabaseClient
+          .from('advertisements')
+          .select()
+          .lte('start_date', now)
+          .gte('end_date', now)
           .order('created_at', ascending: false);
 
       final ads = (data as List)

@@ -10,11 +10,6 @@ class UserProfileSettingsSection extends StatelessWidget {
       children: [
         _buildSectionHeader('Account Settings'),
         UserProfileOption(
-          title: 'My Orders',
-          icon: Icons.receipt_long_outlined,
-          onTap: () {},
-        ),
-        UserProfileOption(
           title: 'Payment Methods',
           icon: Icons.credit_card_outlined,
           onTap: () {},

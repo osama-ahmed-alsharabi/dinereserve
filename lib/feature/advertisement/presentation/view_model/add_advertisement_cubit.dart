@@ -94,7 +94,6 @@ class AddAdvertisementCubit extends Cubit<AddAdvertisementState> {
       supabaseClient: getIt.get<SupabaseClient>(),
     );
     final result = await repo.uploadAdvertisement(ad, selectedImage!);
-
     result.fold(
       (failure) => emit(AddAdvertisementFailure(failure.errMessage)),
       (_) => emit(AddAdvertisementSuccess()),
