@@ -1,4 +1,5 @@
 import 'package:dinereserve/core/helpers/service_locator.dart';
+import 'package:dinereserve/core/services/restaurant_local_service.dart';
 import 'package:dinereserve/feature/auth/login_rest/presentation/view/widgets/login_restaurant_body_widget.dart';
 import 'package:dinereserve/feature/auth/login_rest/presentation/view_model/cubit/login_restaurant_cubit.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,10 @@ class LoginRestView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginRestaurantCubit(getIt.get<SupabaseClient>()),
+      create: (context) => LoginRestaurantCubit(
+        getIt.get<SupabaseClient>(),
+        getIt.get<RestaurantLocalService>(),
+      ),
       child: Scaffold(body: LoginRestaurantBodyWidget()),
     );
   }

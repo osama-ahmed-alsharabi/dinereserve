@@ -7,13 +7,18 @@ import 'package:dinereserve/feature/favorites/data/favorites_repo.dart';
 import 'package:dinereserve/feature/profile_restaurant/data/profile_restaurant_repo.dart';
 import 'package:dinereserve/feature/user_profile/data/user_profile_repo.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final getIt = GetIt.instance;
 
 Future<void> setupServiceLocator() async {
   // Hive Boxes
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserModelAdapter());
+  Hive.registerAdapter(RestaurantModelAdapter());
+
   final userBox = await Hive.openBox<UserModel>('user_box');
   final restaurantBox = await Hive.openBox<RestaurantModel>('restaurant_box');
   final favoritesBox = await Hive.openBox<RestaurantModel>('favorites_box');

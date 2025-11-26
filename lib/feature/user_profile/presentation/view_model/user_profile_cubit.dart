@@ -30,9 +30,26 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     required String name,
     required String age,
     required UserModel currentUser,
+    String? imagePath,
   }) async {
     emit(UserProfileUpdateLoading());
-    final updatedUser = currentUser.copyWith(fullName: name, age: age);
+
+    String? imageUrl = currentUser.image;
+    if (imagePath != null) {
+      final uploadResult = await userProfileRepo.uploadProfileImage(imagePath);
+      uploadResult.fold((failure) {
+        emit(UserProfileUpdateError(failure.errMessage));
+        return;
+      }, (url) => imageUrl = url);
+      if (state is UserProfileUpdateError) return;
+    }
+
+    final updatedUser = currentUser.copyWith(
+      fullName: name,
+      age: age,
+      image: imageUrl,
+    );
+
     final result = await userProfileRepo.updateUserProfile(updatedUser);
     result.fold((failure) => emit(UserProfileUpdateError(failure.errMessage)), (
       _,

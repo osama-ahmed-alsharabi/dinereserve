@@ -84,11 +84,11 @@ class UserProfileHeader extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: const CircleAvatar(
+                child: CircleAvatar(
                   radius: 40,
                   backgroundColor: Colors.white,
                   backgroundImage: NetworkImage(
-                    'https://i.pravatar.cc/150?img=12',
+                    user.image ?? 'https://i.pravatar.cc/150?img=12',
                   ), // Placeholder for now
                 ),
               ),

@@ -10,36 +10,59 @@ final getIt = GetIt.instance;
 class HomeAppBarWidget extends StatelessWidget {
   const HomeAppBarWidget({super.key});
 
+  String _getGreeting() {
+    final hour = TimeOfDay.now().hour;
+    if (hour < 12) {
+      return "Good Morning";
+    } else if (hour < 17) {
+      return "Good Afternoon";
+    } else {
+      return "Good Evening";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final user = getIt<UserLocalService>().getUser();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Row(
           children: [
-            Text(
-              "Deliver to",
-              style: TextStyle(
-                color: Colors.grey[600],
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
+            Container(
+              padding: const EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: AppColors.primaryColor, width: 2),
+              ),
+              child: CircleAvatar(
+                radius: 22,
+                backgroundColor: Colors.grey[200],
+                backgroundImage: user?.image != null
+                    ? NetworkImage(user!.image!)
+                    : const NetworkImage('https://i.pravatar.cc/150?img=12')
+                        as ImageProvider,
               ),
             ),
-            Row(
+            const SizedBox(width: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  getIt<UserLocalService>().getUser()?.fullName ?? "Guest",
+                  _getGreeting(),
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Text(
+                  user?.fullName ?? "Guest",
                   style: const TextStyle(
                     color: AppColors.primaryColor,
                     fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                    fontSize: 16,
                   ),
-                ),
-                const Icon(
-                  Icons.keyboard_arrow_down,
-                  color: AppColors.primaryColor,
-                  size: 20,
                 ),
               ],
             ),

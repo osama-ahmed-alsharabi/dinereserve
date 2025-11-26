@@ -45,16 +45,22 @@ class _UserProfileViewState extends State<UserProfileView> {
           } else if (state is UserProfileError) {
             return Center(child: Text(state.errMessage));
           } else if (state is UserProfileLoaded) {
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  UserProfileHeader(user: state.user),
-                  const SizedBox(height: 20),
-                  const UserProfileSettingsSection(),
-                  const SizedBox(height: 30),
-                  const UserProfileLogoutButton(),
-                  const SizedBox(height: 40),
-                ],
+            return RefreshIndicator(
+              onRefresh: () async {
+                context.read<UserProfileCubit>().fetchUserProfile();
+              },
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    UserProfileHeader(user: state.user),
+                    const SizedBox(height: 20),
+                    const UserProfileSettingsSection(),
+                    const SizedBox(height: 30),
+                    const UserProfileLogoutButton(),
+                    const SizedBox(height: 40),
+                    const SizedBox(height: 40000000),
+                  ],
+                ),
               ),
             );
           }

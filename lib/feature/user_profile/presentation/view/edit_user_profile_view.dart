@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:dinereserve/core/model/user_model.dart';
 import 'package:dinereserve/core/utils/app_colors.dart';
 import 'package:dinereserve/core/widgets/custom_button_widget.dart';
@@ -7,6 +8,7 @@ import 'package:dinereserve/feature/user_profile/presentation/view_model/user_pr
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditUserProfileView extends StatefulWidget {
   final UserModel user;
@@ -21,6 +23,7 @@ class _EditUserProfileViewState extends State<EditUserProfileView> {
   late TextEditingController ageController;
   late TextEditingController phoneController;
   final _formKey = GlobalKey<FormState>();
+  File? _selectedImage;
 
   @override
   void initState() {
@@ -36,6 +39,17 @@ class _EditUserProfileViewState extends State<EditUserProfileView> {
     ageController.dispose();
     phoneController.dispose();
     super.dispose();
+  }
+
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImage = File(pickedFile.path);
+      });
+    }
   }
 
   @override
@@ -93,6 +107,7 @@ class _EditUserProfileViewState extends State<EditUserProfileView> {
                                             name: nameController.text,
                                             age: ageController.text,
                                             currentUser: widget.user,
+                                            imagePath: _selectedImage?.path,
                                           );
                                     }
                                   },
@@ -158,22 +173,36 @@ class _EditUserProfileViewState extends State<EditUserProfileView> {
             shape: BoxShape.circle,
             border: Border.all(color: AppColors.primaryColor, width: 2),
           ),
-          child: const CircleAvatar(
+          child: CircleAvatar(
             radius: 50,
             backgroundColor: Colors.white,
-            backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=12'),
+            backgroundImage: _selectedImage != null
+                ? FileImage(_selectedImage!)
+                : (widget.user.image != null
+                          ? NetworkImage(widget.user.image!)
+                          : const NetworkImage(
+                              'https://i.pravatar.cc/150?img=12',
+                            ))
+                      as ImageProvider,
           ),
         ),
         Positioned(
           bottom: 0,
           right: 0,
-          child: Container(
-            padding: const EdgeInsets.all(8),
-            decoration: const BoxDecoration(
-              color: AppColors.secondaryColor,
-              shape: BoxShape.circle,
+          child: GestureDetector(
+            onTap: _pickImage,
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: const BoxDecoration(
+                color: AppColors.secondaryColor,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.camera_alt,
+                color: Colors.white,
+                size: 20,
+              ),
             ),
-            child: const Icon(Icons.camera_alt, color: Colors.white, size: 20),
           ),
         ),
       ],

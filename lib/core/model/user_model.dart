@@ -19,12 +19,16 @@ class UserModel {
   @HiveField(4)
   final String? password;
 
+  @HiveField(5)
+  final String? image;
+
   UserModel({
     required this.fullName,
     required this.phoneNumber,
     required this.age,
     this.fakeEmail,
     this.password,
+    this.image,
   });
 
   // Convert FROM database map (Supabase)
@@ -33,6 +37,7 @@ class UserModel {
       fullName: map["full_name"] ?? "",
       phoneNumber: map["phone"] ?? "",
       age: map["age"]?.toString() ?? "",
+      image: map["image"],
     );
   }
 
@@ -44,6 +49,7 @@ class UserModel {
       "age": age,
       "fake_email": fakeEmail,
       "password": password,
+      "image": image,
     };
   }
 
@@ -53,6 +59,7 @@ class UserModel {
     String? age,
     String? fakeEmail,
     String? password,
+    String? image,
   }) {
     return UserModel(
       fullName: fullName ?? this.fullName,
@@ -60,6 +67,7 @@ class UserModel {
       age: age ?? this.age,
       fakeEmail: fakeEmail ?? this.fakeEmail,
       password: password ?? this.password,
+      image: image ?? this.image,
     );
   }
 }
