@@ -352,7 +352,7 @@ class ProfileRestaurantView extends StatelessWidget {
                                         .logout();
                                     if (context.mounted) {
                                       context.goNamed(
-                                        AppRouterConst.loginRestViewRouteName,
+                                        AppRouterConst.loginViewRouteName,
                                       );
                                     }
                                   },
