@@ -1,4 +1,5 @@
 import 'package:dinereserve/core/model/restaurant_model.dart';
+import 'package:dinereserve/core/utils/app_colors.dart';
 import 'package:dinereserve/feature/profile_restaurant/presentation/view/profile_restaurant_view.dart';
 import 'package:flutter/material.dart';
 
@@ -27,9 +28,9 @@ class RestaurantCardWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
-              blurRadius: 10,
-              offset: const Offset(0, 5),
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
             ),
           ],
         ),
@@ -37,92 +38,162 @@ class RestaurantCardWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(16),
-                ),
-                child: restaurant.logo != null
-                    ? Image.network(
-                        restaurant.logo!,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      )
-                    : Container(
-                        width: double.infinity,
-                        color: Colors.grey[200],
-                        child: const Icon(
-                          Icons.restaurant,
-                          size: 50,
-                          color: Colors.grey,
-                        ),
-                      ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              flex: 3,
+              child: Stack(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          restaurant.restaurantName,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                  ClipRRect(
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(16),
+                    ),
+                    child: restaurant.logo != null
+                        ? Image.network(
+                            restaurant.logo!,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          )
+                        : Container(
+                            width: double.infinity,
+                            color: Colors.grey[200],
+                            child: const Icon(
+                              Icons.restaurant,
+                              size: 40,
+                              color: Colors.grey,
+                            ),
                           ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                  ),
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: Container(
+                      padding: const EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.9),
+                        shape: BoxShape.circle,
                       ),
-                      const Icon(
+                      child: const Icon(
                         Icons.favorite_border,
-                        size: 20,
+                        size: 16,
                         color: Colors.red,
                       ),
-                    ],
+                    ),
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    restaurant.location,
-                    style: TextStyle(color: Colors.grey[600], fontSize: 12),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      const Icon(Icons.star, size: 16, color: Colors.amber),
-                      const SizedBox(width: 4),
-                      const Text(
-                        "4.5", // Placeholder rating
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
+                  Positioned(
+                    bottom: 8,
+                    left: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.6),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        restaurant.restaurantType.isNotEmpty
+                            ? restaurant.restaurantType
+                            : "Restaurant",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-                      const Spacer(),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.green.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Text(
-                          "Open", // Placeholder status
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      restaurant.restaurantName,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: Colors.black87,
+                        letterSpacing: 0.3,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.location_on,
+                          size: 12,
+                          color: AppColors.primaryColor,
+                        ),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            restaurant.location,
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 11,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.star_rounded,
+                              size: 16,
+                              color: Colors.amber,
+                            ),
+                            const SizedBox(width: 2),
+                            const Text(
+                              "4.8", // Placeholder
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                            ),
+                            Text(
+                              " (120+)",
+                              style: TextStyle(
+                                color: Colors.grey[500],
+                                fontSize: 10,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryColor,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: const Text(
+                            "Book",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

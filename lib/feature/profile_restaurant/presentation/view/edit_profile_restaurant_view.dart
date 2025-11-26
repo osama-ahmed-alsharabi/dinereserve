@@ -1,7 +1,7 @@
 import 'package:dinereserve/core/helpers/service_locator.dart';
 import 'package:dinereserve/core/model/restaurant_model.dart';
 import 'package:dinereserve/core/utils/app_colors.dart';
-import 'package:dinereserve/feature/profile_restaurant/data/get_restaurant_repo.dart';
+import 'package:dinereserve/feature/profile_restaurant/data/profile_restaurant_repo.dart';
 import 'package:dinereserve/feature/profile_restaurant/presentation/view/widgets/edit_restaurant_form_widget.dart';
 import 'package:dinereserve/feature/profile_restaurant/presentation/view/widgets/edit_restaurant_images_widget.dart';
 import 'package:dinereserve/feature/profile_restaurant/presentation/view_model/EditRestaurant/edit_restaurant_cubit.dart';

@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dinereserve/core/errors/failure.dart';
 import 'package:dinereserve/core/errors/supabase_error_handler.dart';
 import 'package:dinereserve/core/model/user_model.dart';
+import 'package:dinereserve/core/services/user_local_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class UserProfileRepo {
@@ -12,8 +13,12 @@ abstract class UserProfileRepo {
 
 class UserProfileRepoImpl implements UserProfileRepo {
   final SupabaseClient supabaseClient;
+  final UserLocalService userLocalService;
 
-  UserProfileRepoImpl({required this.supabaseClient});
+  UserProfileRepoImpl({
+    required this.supabaseClient,
+    required this.userLocalService,
+  });
 
   @override
   Future<Either<Failure, UserModel>> getUserProfile() async {
@@ -46,6 +51,7 @@ class UserProfileRepoImpl implements UserProfileRepo {
   Future<Either<Failure, void>> logout() async {
     try {
       await supabaseClient.auth.signOut();
+      await userLocalService.logout();
       return right(null);
     } catch (e) {
       return left(ServerFailure(e.toString()));
@@ -64,6 +70,7 @@ class UserProfileRepoImpl implements UserProfileRepo {
           .from('profiles')
           .update({"full_name": user.fullName, "age": user.age})
           .eq('id', currentUser.id);
+      await userLocalService.saveUser(user);
 
       return right(null);
     } catch (e) {

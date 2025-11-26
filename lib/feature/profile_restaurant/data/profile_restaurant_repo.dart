@@ -28,8 +28,7 @@ class GetRestaurantRepo {
         .from("restaurant")
         .update(restaurant.toMap())
         .eq("owner_id", restaurant.ownerId!);
-
-    // Update local cache
+        
     await getIt.get<RestaurantLocalService>().saveRestaurant(restaurant);
   }
 

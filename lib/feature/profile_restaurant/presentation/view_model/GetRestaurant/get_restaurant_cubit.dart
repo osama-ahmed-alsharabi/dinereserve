@@ -1,4 +1,4 @@
-import 'package:dinereserve/feature/profile_restaurant/data/get_restaurant_repo.dart';
+import 'package:dinereserve/feature/profile_restaurant/data/profile_restaurant_repo.dart';
 import 'package:dinereserve/feature/profile_restaurant/presentation/view_model/GetRestaurant/get_restaurant_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

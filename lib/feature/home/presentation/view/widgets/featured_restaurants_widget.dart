@@ -42,7 +42,7 @@ class FeaturedRestaurantsWidget extends StatelessWidget {
                   crossAxisCount: 2,
                   mainAxisSpacing: 16,
                   crossAxisSpacing: 16,
-                  childAspectRatio: 0.75,
+                  childAspectRatio: 0.8,
                 ),
                 itemCount: state.restaurants.length,
                 itemBuilder: (context, index) {

@@ -2,7 +2,7 @@ import 'package:dinereserve/core/helpers/service_locator.dart';
 import 'package:dinereserve/core/widgets/custom_nav_bar.dart';
 import 'package:dinereserve/feature/home/presentation/view/widgets/home_body_widget.dart';
 import 'package:dinereserve/feature/home/presentation/view_model/home_cubit.dart';
-import 'package:dinereserve/feature/profile_restaurant/data/get_restaurant_repo.dart';
+import 'package:dinereserve/feature/profile_restaurant/data/profile_restaurant_repo.dart';
 import 'package:dinereserve/feature/user_booking/presentation/view/user_booking_view.dart';
 import 'package:dinereserve/feature/user_profile/data/user_profile_repo.dart';
 import 'package:dinereserve/feature/user_profile/presentation/view/user_profile_view.dart';

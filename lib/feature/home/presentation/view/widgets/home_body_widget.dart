@@ -11,33 +11,51 @@ class HomeBodyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const HomeAppBarWidget(),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: HomeAppBarWidget(),
+            ),
             const SizedBox(height: 24),
-            const HomeSearchWidget(),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: HomeSearchWidget(),
+            ),
             const SizedBox(height: 24),
             const QuickCategoriesWidget(),
             const SizedBox(height: 24),
             // Banner Placeholder
-            Container(
-              height: 150,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.orange,
-                borderRadius: BorderRadius.circular(16),
-                image: const DecorationImage(
-                  image: NetworkImage(
-                    "https://img.freepik.com/free-vector/flat-design-food-banner-template_23-2149076251.jpg",
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Container(
+                height: 160,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  image: const DecorationImage(
+                    image: NetworkImage(
+                      "https://img.freepik.com/free-vector/flat-design-food-banner-template_23-2149076251.jpg",
+                    ),
+                    fit: BoxFit.cover,
                   ),
-                  fit: BoxFit.cover,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 10,
+                      offset: Offset(0, 5),
+                    ),
+                  ],
                 ),
               ),
             ),
             const SizedBox(height: 24),
-            const FeaturedRestaurantsWidget(),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: FeaturedRestaurantsWidget(),
+            ),
             const SizedBox(height: 20),
           ],
         ),
