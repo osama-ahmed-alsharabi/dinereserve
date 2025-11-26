@@ -1,5 +1,7 @@
+import 'package:dinereserve/core/model/payment_method_model.dart';
 import 'package:dinereserve/core/model/restaurant_model.dart';
 import 'package:dinereserve/core/model/user_model.dart';
+import 'package:dinereserve/core/services/payment_method_local_service.dart';
 import 'package:dinereserve/core/services/restaurant_local_service.dart';
 import 'package:dinereserve/core/services/user_local_service.dart';
 import 'package:dinereserve/feature/advertisement/data/advertisement_repo.dart';
@@ -18,10 +20,14 @@ Future<void> setupServiceLocator() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserModelAdapter());
   Hive.registerAdapter(RestaurantModelAdapter());
+  Hive.registerAdapter(PaymentMethodModelAdapter());
 
   final userBox = await Hive.openBox<UserModel>('user_box');
   final restaurantBox = await Hive.openBox<RestaurantModel>('restaurant_box');
   final favoritesBox = await Hive.openBox<RestaurantModel>('favorites_box');
+  final paymentMethodBox = await Hive.openBox<PaymentMethodModel>(
+    'payment_method_box',
+  );
 
   // Supabase
   getIt.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
@@ -32,6 +38,9 @@ Future<void> setupServiceLocator() async {
   );
   getIt.registerLazySingleton<RestaurantLocalService>(
     () => RestaurantLocalService(restaurantBox),
+  );
+  getIt.registerLazySingleton<PaymentMethodLocalService>(
+    () => PaymentMethodLocalService(paymentMethodBox),
   );
 
   // Repositories

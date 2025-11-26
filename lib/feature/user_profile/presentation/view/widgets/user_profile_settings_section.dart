@@ -1,8 +1,27 @@
+import 'package:dinereserve/core/helpers/service_locator.dart';
+import 'package:dinereserve/core/services/payment_method_local_service.dart';
+import 'package:dinereserve/feature/user_profile/presentation/view/widgets/payment_method_bottom_sheet.dart';
 import 'package:dinereserve/feature/user_profile/presentation/view/widgets/user_profile_option.dart';
+import 'package:dinereserve/feature/user_profile/presentation/view_model/payment_method_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserProfileSettingsSection extends StatelessWidget {
   const UserProfileSettingsSection({super.key});
+
+  void _showPaymentMethodBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => BlocProvider(
+        create: (context) =>
+            PaymentMethodCubit(getIt.get<PaymentMethodLocalService>())
+              ..loadPaymentMethod(),
+        child: const PaymentMethodBottomSheet(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +31,7 @@ class UserProfileSettingsSection extends StatelessWidget {
         UserProfileOption(
           title: 'Payment Methods',
           icon: Icons.credit_card_outlined,
-          onTap: () {},
+          onTap: () => _showPaymentMethodBottomSheet(context),
         ),
         UserProfileOption(
           title: 'Privacy Policy',
