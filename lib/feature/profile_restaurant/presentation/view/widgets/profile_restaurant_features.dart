@@ -30,13 +30,13 @@ class ProfileRestaurantFeatures extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
+                  color: Colors.black.withAlpha(13),
                   offset: const Offset(-2, -2),
                   blurRadius: 10,
                   spreadRadius: 1,
                 ),
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: Colors.black.withAlpha(26),
                   offset: const Offset(4, 4),
                   blurRadius: 10,
                   spreadRadius: 1,
@@ -54,7 +54,7 @@ class ProfileRestaurantFeatures extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
-                    color: AppColors.primaryColor.withOpacity(0.1),
+                    color: AppColors.primaryColor.withAlpha(26),
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(

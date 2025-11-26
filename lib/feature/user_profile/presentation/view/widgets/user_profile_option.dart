@@ -26,7 +26,7 @@ class UserProfileOption extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withAlpha(13),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -45,8 +45,8 @@ class UserProfileOption extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: isDestructive
-                        ? AppColors.errorColor.withOpacity(0.1)
-                        : AppColors.primaryColor.withOpacity(0.1),
+                        ? AppColors.errorColor.withAlpha(26)
+                        : AppColors.primaryColor.withAlpha(26),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Icon(

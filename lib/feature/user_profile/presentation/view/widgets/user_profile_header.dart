@@ -110,7 +110,7 @@ class UserProfileHeader extends StatelessWidget {
                     Text(
                       user.phoneNumber,
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.8),
+                        color: Colors.white.withAlpha(204),
                         fontSize: 14,
                       ),
                     ),

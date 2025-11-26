@@ -24,7 +24,7 @@ class RestaurantAdCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withAlpha(13),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -130,7 +130,7 @@ class RestaurantAdCardWidget extends StatelessWidget {
           color: Colors.white,
           shape: BoxShape.circle,
           boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 4),
+            BoxShadow(color: Colors.black.withAlpha(26), blurRadius: 4),
           ],
         ),
         child: Icon(icon, size: 16, color: color),

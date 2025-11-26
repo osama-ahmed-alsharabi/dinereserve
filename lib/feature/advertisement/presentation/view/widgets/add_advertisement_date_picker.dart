@@ -27,7 +27,7 @@ class AddAdvertisementDatePicker extends StatelessWidget {
           border: Border.all(color: Colors.grey[300]!),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withAlpha(26),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),

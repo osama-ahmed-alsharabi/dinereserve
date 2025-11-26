@@ -32,7 +32,7 @@ class ProfileRestaurantFood extends StatelessWidget {
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
+                  color: Colors.black.withAlpha(51),
                   blurRadius: 15,
                   offset: const Offset(0, 8),
                 ),
@@ -48,7 +48,7 @@ class ProfileRestaurantFood extends StatelessWidget {
                     width: 100,
                     height: 100,
                     decoration: BoxDecoration(
-                      color: AppColors.primaryColor.withOpacity(0.1),
+                      color: AppColors.primaryColor.withAlpha(26),
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -61,7 +61,7 @@ class ProfileRestaurantFood extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.1),
+                          color: Colors.white.withAlpha(26),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: const Icon(
@@ -90,7 +90,7 @@ class ProfileRestaurantFood extends StatelessWidget {
                             "Order Now",
                             style: TextStyle(
                               fontSize: 12,
-                              color: AppColors.primaryColor.withOpacity(0.9),
+                              color: AppColors.primaryColor.withAlpha(230),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -98,7 +98,7 @@ class ProfileRestaurantFood extends StatelessWidget {
                           Icon(
                             Icons.arrow_forward,
                             size: 12,
-                            color: AppColors.primaryColor.withOpacity(0.9),
+                            color: AppColors.primaryColor.withAlpha(230),
                           ),
                         ],
                       ),

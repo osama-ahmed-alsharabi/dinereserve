@@ -19,7 +19,7 @@ class AddAdvertisementSubmitButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
           ),
           elevation: 10,
-          shadowColor: AppColors.primaryColor.withOpacity(0.5),
+          shadowColor: AppColors.primaryColor.withAlpha(26),
         ),
         child: const Text(
           "Publish Advertisement",

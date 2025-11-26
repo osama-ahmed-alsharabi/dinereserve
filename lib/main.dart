@@ -1,4 +1,3 @@
-import 'package:dinereserve/core/helpers/hive_init.dart';
 import 'package:dinereserve/core/helpers/service_locator.dart';
 import 'package:dinereserve/core/router/app_router.dart';
 import 'package:dinereserve/core/theme/light_theme.dart';

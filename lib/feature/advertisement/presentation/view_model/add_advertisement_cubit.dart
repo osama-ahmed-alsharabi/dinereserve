@@ -61,7 +61,6 @@ class AddAdvertisementCubit extends Cubit<AddAdvertisementState> {
               surface: Colors.white,
               onSurface: Colors.black,
             ),
-            dialogBackgroundColor: Colors.white,
           ),
           child: child!,
         );

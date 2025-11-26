@@ -31,7 +31,7 @@ class RestaurantCardWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.08),
+              color: Colors.black.withAlpha(20),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
@@ -81,7 +81,7 @@ class RestaurantCardWidget extends StatelessWidget {
                           child: Container(
                             padding: const EdgeInsets.all(6),
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.9),
+                              color: Colors.white.withAlpha(230),
                               shape: BoxShape.circle,
                             ),
                             child: Icon(
@@ -103,7 +103,7 @@ class RestaurantCardWidget extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.6),
+                        color: Colors.black.withAlpha(153),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(

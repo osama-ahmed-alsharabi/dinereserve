@@ -23,13 +23,13 @@ class AddAdvertisementImagePicker extends StatelessWidget {
           color: Colors.grey[50],
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: AppColors.primaryColor.withOpacity(0.3),
+            color: AppColors.primaryColor.withAlpha(26),
             style: BorderStyle.solid,
             width: 1,
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withAlpha(26),
               blurRadius: 20,
               offset: const Offset(0, 10),
             ),
@@ -46,7 +46,7 @@ class AddAdvertisementImagePicker extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: AppColors.primaryColor.withOpacity(0.1),
+                      color: AppColors.primaryColor.withAlpha(26),
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(

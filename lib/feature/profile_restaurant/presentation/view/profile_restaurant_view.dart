@@ -81,9 +81,9 @@ class ProfileRestaurantView extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.black.withOpacity(0.3),
+                    Colors.black.withAlpha(77),
                     Colors.transparent,
-                    Colors.black.withOpacity(0.8),
+                    Colors.black.withAlpha(204),
                   ],
                 ),
               ),
@@ -127,7 +127,7 @@ class ProfileRestaurantView extends StatelessWidget {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
+                      color: Colors.black.withAlpha(51),
                       blurRadius: 20,
                       offset: const Offset(0, -5),
                     ),
@@ -256,13 +256,13 @@ class ProfileRestaurantView extends StatelessWidget {
                                 padding: const EdgeInsets.all(16),
                                 decoration: BoxDecoration(
                                   color: isOpen
-                                      ? Colors.green.withOpacity(0.05)
-                                      : Colors.red.withOpacity(0.05),
+                                      ? Colors.green.withAlpha(13)
+                                      : Colors.red.withAlpha(13),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(
                                     color: isOpen
-                                        ? Colors.green.withOpacity(0.2)
-                                        : Colors.red.withOpacity(0.2),
+                                        ? Colors.green.withAlpha(51)
+                                        : Colors.red.withAlpha(51),
                                   ),
                                 ),
                                 child: Row(
@@ -278,8 +278,8 @@ class ProfileRestaurantView extends StatelessWidget {
                                         boxShadow: [
                                           BoxShadow(
                                             color: isOpen
-                                                ? Colors.green.withOpacity(0.4)
-                                                : Colors.red.withOpacity(0.4),
+                                                ? Colors.green.withAlpha(102)
+                                                : Colors.red.withAlpha(102),
                                             blurRadius: 8,
                                             spreadRadius: 2,
                                           ),
@@ -389,7 +389,7 @@ class ProfileRestaurantView extends StatelessWidget {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.primaryColor.withOpacity(0.4),
+                      color: AppColors.primaryColor.withAlpha(102),
                       blurRadius: 20,
                       offset: const Offset(0, 10),
                     ),
@@ -440,9 +440,9 @@ class ProfileRestaurantView extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.2),
+            color: Colors.white.withAlpha(51),
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.white.withOpacity(0.2)),
+            border: Border.all(color: Colors.white.withAlpha(51)),
           ),
           child: IconButton(
             icon: Icon(icon, color: Colors.white),
