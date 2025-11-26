@@ -1,7 +1,10 @@
 import 'package:dinereserve/core/model/restaurant_model.dart';
 import 'package:dinereserve/core/utils/app_colors.dart';
+import 'package:dinereserve/feature/favorites/presentation/view_model/favorites_cubit.dart';
+import 'package:dinereserve/feature/favorites/presentation/view_model/favorites_state.dart';
 import 'package:dinereserve/feature/profile_restaurant/presentation/view/profile_restaurant_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RestaurantCardWidget extends StatelessWidget {
   final RestaurantModel restaurant;
@@ -64,17 +67,31 @@ class RestaurantCardWidget extends StatelessWidget {
                   Positioned(
                     top: 8,
                     right: 8,
-                    child: Container(
-                      padding: const EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.9),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.favorite_border,
-                        size: 16,
-                        color: Colors.red,
-                      ),
+                    child: BlocBuilder<FavoritesCubit, FavoritesState>(
+                      builder: (context, state) {
+                        final isFav = context.read<FavoritesCubit>().isFavorite(
+                          restaurant.restaurantId!,
+                        );
+                        return GestureDetector(
+                          onTap: () {
+                            context.read<FavoritesCubit>().toggleFavorite(
+                              restaurant,
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.9),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              isFav ? Icons.favorite : Icons.favorite_border,
+                              size: 16,
+                              color: isFav ? Colors.red : Colors.grey,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                   Positioned(

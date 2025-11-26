@@ -1,5 +1,8 @@
 import 'package:dinereserve/core/helpers/service_locator.dart';
 import 'package:dinereserve/core/widgets/custom_nav_bar.dart';
+import 'package:dinereserve/feature/favorites/data/favorites_repo.dart';
+import 'package:dinereserve/feature/favorites/presentation/view/favorites_view.dart';
+import 'package:dinereserve/feature/favorites/presentation/view_model/favorites_cubit.dart';
 import 'package:dinereserve/feature/home/presentation/view/widgets/home_body_widget.dart';
 import 'package:dinereserve/feature/home/presentation/view_model/home_cubit.dart';
 import 'package:dinereserve/feature/profile_restaurant/data/profile_restaurant_repo.dart';
@@ -25,7 +28,7 @@ class _MainViewState extends State<MainView> {
     HomeBodyWidget(),
     UserBookingView(),
     Center(child: Text("Bot")),
-    Center(child: Text("Favorite")),
+    FavoritesView(),
     UserProfileView(),
   ];
 
@@ -37,15 +40,19 @@ class _MainViewState extends State<MainView> {
         create: (context) =>
             HomeCubit(GetRestaurantRepo(getIt.get<SupabaseClient>()))
               ..getAllRestaurants(),
-        child: Scaffold(
-          body: IndexedStack(index: currentIndex, children: pages),
-          bottomNavigationBar: CustomBottomNavBar(
-            currentIndex: currentIndex,
-            onTap: (value) {
-              setState(() {
-                currentIndex = value;
-              });
-            },
+        child: BlocProvider(
+          create: (context) =>
+              FavoritesCubit(getIt.get<FavoritesRepo>())..loadFavorites(),
+          child: Scaffold(
+            body: IndexedStack(index: currentIndex, children: pages),
+            bottomNavigationBar: CustomBottomNavBar(
+              currentIndex: currentIndex,
+              onTap: (value) {
+                setState(() {
+                  currentIndex = value;
+                });
+              },
+            ),
           ),
         ),
       ),

@@ -98,7 +98,7 @@ class ProfileRestaurantView extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                if (UserLocalService().getUser() != null || isReadOnly)
+                if (getIt<UserLocalService>().getUser() != null || isReadOnly)
                   _buildGlassIconButton(
                     icon: Icons.arrow_back,
                     onTap: () => Navigator.pop(context),
@@ -352,7 +352,7 @@ class ProfileRestaurantView extends StatelessWidget {
                                         .logout();
                                     if (context.mounted) {
                                       context.goNamed(
-                                        AppRouterConst.loginViewRouteName,
+                                        AppRouterConst.loginRestViewRouteName,
                                       );
                                     }
                                   },

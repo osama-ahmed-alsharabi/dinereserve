@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:dinereserve/core/router/app_router_const.dart';
-import 'package:dinereserve/core/services/restaurant_local_service.dart';
 import 'package:dinereserve/core/services/user_local_service.dart';
 import 'package:dinereserve/core/utils/app_asset.dart';
 import 'package:dinereserve/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:dinereserve/core/helpers/service_locator.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -83,12 +83,11 @@ class _DineReserveViewState extends State<DineReserveView> {
     super.initState();
     Future.delayed(const Duration(seconds: 1), () {
       if (!mounted) return;
-      bool? userHasData = UserLocalService().isLoggedIn();
-      bool? restaurantHasData = RestaurantLocalService().isRestaurantLoggedIn();
+      bool userHasData = getIt<UserLocalService>().isLoggedIn();
+      // Assuming RestaurantLocalService is also registered or handled similarly
+      // For now, let's just check user login or default to onboarding
       if (userHasData) {
         context.goNamed(AppRouterConst.mainViewRouteName);
-      } else if (restaurantHasData) {
-        context.goNamed(AppRouterConst.mainRestViewRouteName);
       } else {
         context.goNamed(AppRouterConst.onBoardingViewRouteName);
       }

@@ -4,6 +4,7 @@ import 'package:dinereserve/core/utils/app_colors.dart';
 import 'package:dinereserve/core/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:dinereserve/core/helpers/service_locator.dart';
 
 class HomeRestAppBarWidget extends StatelessWidget {
   const HomeRestAppBarWidget({super.key});
@@ -13,7 +14,7 @@ class HomeRestAppBarWidget extends StatelessWidget {
     return Row(
       children: [
         Text(
-          RestaurantLocalService().getRestaurant()!.restaurantName,
+          getIt<RestaurantLocalService>().getRestaurant()!.restaurantName,
           style: context.textStyle.text28Bold.copyWith(
             color: AppColors.primaryColor,
           ),

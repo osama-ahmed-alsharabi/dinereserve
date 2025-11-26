@@ -5,7 +5,9 @@ class RestaurantLocalService {
   static const String restaurantBoxName = "restaurantBox";
   static const String restaurantKey = "currentRestaurant";
 
-  final Box box = Hive.box(restaurantBoxName);
+  final Box<RestaurantModel> box;
+
+  RestaurantLocalService(this.box);
 
   /// Save restaurant data
   Future<void> saveRestaurant(RestaurantModel restaurant) async {
