@@ -8,6 +8,7 @@ import 'package:dinereserve/feature/auth/register/presentation/view/register_vie
 import 'package:dinereserve/feature/auth/register_rest/presentation/view/register_rest_view.dart';
 import 'package:dinereserve/feature/on_boarding/presentation/view/onboarding_view.dart';
 import 'package:dinereserve/feature/splash/presentation/view/splash_view.dart';
+import 'package:dinereserve/feature/advertisement/presentation/view/add_advertisement_view.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
@@ -92,6 +93,15 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
           child: const MainRestView(),
+          transitionsBuilder: PageTransitions.noTransition,
+        ),
+      ),
+      GoRoute(
+        path: '/${AppRouterConst.addAdvertisementViewRouteName}',
+        name: AppRouterConst.addAdvertisementViewRouteName,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const AddAdvertisementView(),
           transitionsBuilder: PageTransitions.noTransition,
         ),
       ),

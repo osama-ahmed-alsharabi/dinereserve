@@ -1,9 +1,9 @@
 import 'package:dinereserve/core/services/restaurant_local_service.dart';
-import 'package:dinereserve/core/utils/app_asset.dart';
+import 'package:dinereserve/core/router/app_router_const.dart';
 import 'package:dinereserve/core/utils/app_colors.dart';
 import 'package:dinereserve/core/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeRestAppBarWidget extends StatelessWidget {
   const HomeRestAppBarWidget({super.key});
@@ -19,14 +19,19 @@ class HomeRestAppBarWidget extends StatelessWidget {
           ),
         ),
         Spacer(),
-        Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: AppColors.thirdColor,
-            border: Border.all(color: Colors.white),
+        GestureDetector(
+          onTap: () {
+            context.pushNamed(AppRouterConst.addAdvertisementViewRouteName);
+          },
+          child: Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: AppColors.thirdColor,
+              border: Border.all(color: Colors.white),
+            ),
+            child: Icon(Icons.add, size: 30),
           ),
-          child: SvgPicture.asset(AppAsset.imagesNotifications, height: 25),
         ),
       ],
     );

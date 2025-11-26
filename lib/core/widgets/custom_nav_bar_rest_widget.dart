@@ -49,10 +49,12 @@ class CustomNavBarRestWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            icon,
-            size: selected ? 28 : 24,
-            color: selected ? AppColors.primaryColor : Colors.grey,
+          FittedBox(
+            child: Icon(
+              icon,
+              size: selected ? 26 : 24,
+              color: selected ? AppColors.primaryColor : Colors.grey,
+            ),
           ),
           const SizedBox(height: 4),
           Text(
