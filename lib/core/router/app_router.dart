@@ -1,3 +1,4 @@
+import 'package:dinereserve/core/model/booking_model.dart';
 import 'package:dinereserve/core/router/app_router_const.dart';
 import 'package:dinereserve/core/router/page_transitions.dart';
 import 'package:dinereserve/core/widgets/main_rest_view.dart';
@@ -6,6 +7,7 @@ import 'package:dinereserve/feature/auth/login/presentation/view/login_view.dart
 import 'package:dinereserve/feature/auth/login_rest/presentation/view/login_rest.dart';
 import 'package:dinereserve/feature/auth/register/presentation/view/register_view.dart';
 import 'package:dinereserve/feature/auth/register_rest/presentation/view/register_rest_view.dart';
+import 'package:dinereserve/feature/booking/presentation/view/booking_detail_view.dart';
 import 'package:dinereserve/feature/on_boarding/presentation/view/onboarding_view.dart';
 import 'package:dinereserve/feature/splash/presentation/view/splash_view.dart';
 import 'package:dinereserve/feature/advertisement/presentation/view/add_advertisement_view.dart';
@@ -102,6 +104,16 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
           child: const AddAdvertisementView(),
+          transitionsBuilder: PageTransitions.noTransition,
+        ),
+      ),
+      GoRoute(
+        path: '/${AppRouterConst.bookingDetailViewRouteName}',
+        name: AppRouterConst.bookingDetailViewRouteName,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          arguments: state.extra,
+          child: BookingDetailView(booking: state.extra as BookingModel),
           transitionsBuilder: PageTransitions.noTransition,
         ),
       ),

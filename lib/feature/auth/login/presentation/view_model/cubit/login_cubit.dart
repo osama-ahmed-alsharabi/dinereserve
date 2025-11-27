@@ -34,7 +34,7 @@ class LoginCubit extends Cubit<LoginState> {
           .single();
       final userModel = UserModel.fromMap(
         response,
-      ).copyWith(fakeEmail: fakeEmail, password: password);
+      ).copyWith(id: userId, fakeEmail: fakeEmail, password: password);
 
       await userLocalService.saveUser(userModel);
 

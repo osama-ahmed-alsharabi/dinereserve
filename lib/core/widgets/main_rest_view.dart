@@ -3,6 +3,7 @@ import 'package:dinereserve/core/widgets/custom_nav_bar_rest_widget.dart';
 import 'package:dinereserve/feature/home_rest/presentation/view/home_rest_view.dart';
 import 'package:dinereserve/feature/profile_restaurant/data/profile_restaurant_repo.dart';
 import 'package:dinereserve/feature/profile_restaurant/presentation/view/profile_restaurant_view.dart';
+import 'package:dinereserve/feature/booking/presentation/view/restaurant_bookings_view.dart';
 import 'package:dinereserve/feature/profile_restaurant/presentation/view_model/GetRestaurant/get_restaurant_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +21,7 @@ class _MainRestViewState extends State<MainRestView> {
 
   final List<Widget> pages = const [
     HomeRestView(),
-    Center(child: Text("Booking")),
+    RestaurantBookingsView(),
     ProfileRestaurantView(),
   ];
 

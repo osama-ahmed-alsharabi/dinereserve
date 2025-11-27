@@ -6,7 +6,7 @@ import 'package:dinereserve/feature/favorites/presentation/view_model/favorites_
 import 'package:dinereserve/feature/home/presentation/view/widgets/home_body_widget.dart';
 import 'package:dinereserve/feature/home/presentation/view_model/home_cubit.dart';
 import 'package:dinereserve/feature/profile_restaurant/data/profile_restaurant_repo.dart';
-import 'package:dinereserve/feature/user_booking/presentation/view/user_booking_view.dart';
+import 'package:dinereserve/feature/booking/presentation/view/user_bookings_view.dart';
 import 'package:dinereserve/feature/user_profile/data/user_profile_repo.dart';
 import 'package:dinereserve/feature/user_profile/presentation/view/user_profile_view.dart';
 import 'package:dinereserve/feature/user_profile/presentation/view_model/user_profile_cubit.dart';
@@ -26,7 +26,7 @@ class _MainViewState extends State<MainView> {
 
   final List<Widget> pages = const [
     HomeBodyWidget(),
-    UserBookingView(),
+    UserBookingsView(),
     Center(child: Text("Bot")),
     FavoritesView(),
     UserProfileView(),

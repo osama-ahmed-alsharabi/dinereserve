@@ -22,6 +22,9 @@ class UserModel {
   @HiveField(5)
   final String? image;
 
+  @HiveField(6)
+  final String? id; // Supabase user UUID
+
   UserModel({
     required this.fullName,
     required this.phoneNumber,
@@ -29,6 +32,7 @@ class UserModel {
     this.fakeEmail,
     this.password,
     this.image,
+    this.id,
   });
 
   // Convert FROM database map (Supabase)
@@ -38,6 +42,7 @@ class UserModel {
       phoneNumber: map["phone"] ?? "",
       age: map["age"]?.toString() ?? "",
       image: map["image"],
+      id: map["id"], // Get UUID from Supabase
     );
   }
 
@@ -50,6 +55,7 @@ class UserModel {
       "fake_email": fakeEmail,
       "password": password,
       "image": image,
+      "id": id,
     };
   }
 
@@ -60,6 +66,7 @@ class UserModel {
     String? fakeEmail,
     String? password,
     String? image,
+    String? id,
   }) {
     return UserModel(
       fullName: fullName ?? this.fullName,
@@ -68,6 +75,7 @@ class UserModel {
       fakeEmail: fakeEmail ?? this.fakeEmail,
       password: password ?? this.password,
       image: image ?? this.image,
+      id: id ?? this.id,
     );
   }
 }

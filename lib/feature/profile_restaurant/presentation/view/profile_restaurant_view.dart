@@ -10,6 +10,9 @@ import 'package:dinereserve/feature/profile_restaurant/presentation/view_model/G
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:dinereserve/feature/booking/data/booking_repo.dart';
+import 'package:dinereserve/feature/booking/presentation/view/widgets/booking_bottom_sheet.dart';
+import 'package:dinereserve/feature/booking/presentation/view_model/booking_cubit.dart';
 import 'widgets/profile_restaurant_features.dart';
 import 'widgets/profile_restaurant_edit_button.dart';
 import 'widgets/profile_restaurant_food.dart';
@@ -397,13 +400,7 @@ class ProfileRestaurantView extends StatelessWidget {
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Booking feature coming soon!"),
-                        backgroundColor: AppColors.primaryColor,
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
+                    _showBookingBottomSheet(context, restaurant);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryColor,
@@ -543,5 +540,34 @@ class ProfileRestaurantView extends StatelessWidget {
       // Return midnight on error
     }
     return const TimeOfDay(hour: 0, minute: 0);
+  }
+
+  void _showBookingBottomSheet(
+    BuildContext context,
+    RestaurantModel restaurant,
+  ) {
+    final userService = getIt.get<UserLocalService>();
+    final user = userService.getUser();
+
+    if (user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please login to book a table'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => BlocProvider(
+        create: (context) =>
+            BookingCubit(BookingRepoImpl(supabaseClient: getIt())),
+        child: BookingBottomSheet(restaurant: restaurant, user: user),
+      ),
+    );
   }
 }

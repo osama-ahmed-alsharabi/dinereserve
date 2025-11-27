@@ -10,4 +10,5 @@ abstract class AppRouterConst {
   static const String loginRestViewRouteName = "loginRest";
   static const String mainRestViewRouteName = 'mainRestView';
   static const String addAdvertisementViewRouteName = 'addAdvertisementView';
+  static const String bookingDetailViewRouteName = 'bookingDetailView';
 }
