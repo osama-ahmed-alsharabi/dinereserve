@@ -36,16 +36,7 @@ class UserBookingsView extends StatelessWidget {
           elevation: 0,
           centerTitle: true,
         ),
-        body: RefreshIndicator(
-          onRefresh: () async {
-            final userService = getIt.get<UserLocalService>();
-            final user = userService.getUser();
-            if (user != null) {
-              context.read<BookingCubit>().loadUserBookings(user.id!);
-            }
-          },
-          child: UserBookingsViewBodyWidget(),
-        ),
+        body: UserBookingsViewBodyWidget(),
       ),
     );
   }
@@ -56,79 +47,80 @@ class UserBookingsViewBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BookingCubit, BookingState>(
-      builder: (context, state) {
-        if (state is BookingLoading) {
-          return const Center(
-            child: CircularProgressIndicator(color: AppColors.primaryColor),
-          );
-        }
+    return RefreshIndicator(
+      onRefresh: () async {
+        final userService = getIt.get<UserLocalService>();
+        final user = userService.getUser();
 
-        if (state is BookingError) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.error_outline, size: 64, color: Colors.red[300]),
-                const SizedBox(height: 16),
-                Text(
-                  'Error loading bookings',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[800],
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  state.message,
-                  style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          );
+        if (user != null) {
+          context.read<BookingCubit>().loadUserBookings(user.id!);
         }
+      },
+      child: BlocBuilder<BookingCubit, BookingState>(
+        builder: (context, state) {
+          if (state is BookingLoading) {
+            return const Center(
+              child: CircularProgressIndicator(color: AppColors.primaryColor),
+            );
+          }
 
-        if (state is UserBookingsLoaded) {
-          if (state.bookings.isEmpty) {
+          if (state is BookingError) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.calendar_today_outlined,
-                    size: 80,
-                    color: Colors.grey[300],
-                  ),
-                  const SizedBox(height: 20),
+                  Icon(Icons.error_outline, size: 64, color: Colors.red[300]),
+                  const SizedBox(height: 16),
                   Text(
-                    'No Bookings Yet',
+                    'Error loading bookings',
                     style: TextStyle(
-                      fontSize: 22,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey[800],
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Start booking your favorite restaurants!',
+                    state.message,
                     style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                    textAlign: TextAlign.center,
                   ),
                 ],
               ),
             );
           }
 
-          return RefreshIndicator(
-            onRefresh: () async {
-              final userService = getIt.get<UserLocalService>();
-              final user = userService.getUser();
-              if (user != null) {
-                context.read<BookingCubit>().loadUserBookings(user.fakeEmail!);
-              }
-            },
-            child: ListView.builder(
+          if (state is UserBookingsLoaded) {
+            if (state.bookings.isEmpty) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.calendar_today_outlined,
+                      size: 80,
+                      color: Colors.grey[300],
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'No Bookings Yet',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[800],
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Start booking your favorite restaurants!',
+                      style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                    ),
+                  ],
+                ),
+              );
+            }
+
+            return ListView.builder(
               padding: const EdgeInsets.all(20),
               itemCount: state.bookings.length,
               itemBuilder: (context, index) {
@@ -143,12 +135,12 @@ class UserBookingsViewBodyWidget extends StatelessWidget {
                   },
                 );
               },
-            ),
-          );
-        }
+            );
+          }
 
-        return const SizedBox();
-      },
+          return const SizedBox();
+        },
+      ),
     );
   }
 }
