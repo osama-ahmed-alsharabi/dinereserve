@@ -44,16 +44,16 @@ class _MainViewState extends State<MainView> {
           create: (context) =>
               FavoritesCubit(getIt.get<FavoritesRepo>())..loadFavorites(),
           child: Scaffold(
-            body: IndexedStack(index: currentIndex, children: pages),
-            bottomNavigationBar: CustomBottomNavBar(
-              currentIndex: currentIndex,
-              onTap: (value) {
-                setState(() {
-                  currentIndex = value;
-                });
-              },
-            ),
-          ),
+           body: IndexedStack(index: currentIndex, children: pages),
+           bottomNavigationBar: CustomBottomNavBar(
+             currentIndex: currentIndex,
+             onTap: (value) {
+               setState(() {
+                 currentIndex = value;
+               });
+             },
+           ),
+                      ),
         ),
       ),
     );
