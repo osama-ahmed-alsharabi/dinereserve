@@ -59,7 +59,7 @@ class BookingModel {
   Map<String, dynamic> toMap() {
     return {
       if (id != null) 'id': id,
-      'user_id': id,
+      'user_id': userId,
       'user_name': userName,
       'user_phone': userPhone,
       'restaurant_id': restaurantId,
