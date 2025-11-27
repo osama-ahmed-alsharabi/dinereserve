@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dinereserve/core/utils/app_colors.dart';
 import 'package:dinereserve/feature/home/presentation/view/widgets/home_ad_banner_widget.dart';
 import 'package:dinereserve/feature/home/presentation/view_model/home_ads_cubit.dart';
@@ -15,9 +17,33 @@ class HomeAdsCarouselWidget extends StatefulWidget {
 class _HomeAdsCarouselWidgetState extends State<HomeAdsCarouselWidget> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
+  Timer? _autoScrollTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startAutoScroll();
+  }
+
+  void _startAutoScroll() {
+    _autoScrollTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_pageController.hasClients) {
+        final state = context.read<HomeAdsCubit>().state;
+        if (state is HomeAdsLoaded && state.ads.isNotEmpty) {
+          final nextPage = (_currentPage + 1) % state.ads.length;
+          _pageController.animateToPage(
+            nextPage,
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeInOut,
+          );
+        }
+      }
+    });
+  }
 
   @override
   void dispose() {
+    _autoScrollTimer?.cancel();
     _pageController.dispose();
     super.dispose();
   }
