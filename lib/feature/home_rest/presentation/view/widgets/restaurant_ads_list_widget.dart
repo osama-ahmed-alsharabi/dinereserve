@@ -107,9 +107,14 @@ class RestaurantAdsListWidget extends StatelessWidget {
   }
 
   void _showEditDialog(BuildContext context, AdvertisementModel ad) async {
+    // Use the earlier date between ad.startDate and now to avoid assertion error
+    final firstDate = ad.startDate.isBefore(DateTime.now())
+        ? ad.startDate
+        : DateTime.now();
+
     DateTimeRange? picked = await showDateRangePicker(
       context: context,
-      firstDate: DateTime.now(),
+      firstDate: firstDate,
       lastDate: DateTime(2101),
       initialDateRange: DateTimeRange(start: ad.startDate, end: ad.endDate),
       builder: (context, child) {
