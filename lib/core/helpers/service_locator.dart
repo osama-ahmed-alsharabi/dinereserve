@@ -13,6 +13,8 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import 'package:dinereserve/feature/notification/data/notification_repo.dart';
+import 'package:dinereserve/feature/home_rest/data/dashboard_repo.dart';
+import 'package:dinereserve/feature/booking/data/booking_repo.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -67,5 +69,15 @@ Future<void> setupServiceLocator() async {
   );
   getIt.registerLazySingleton<NotificationRepo>(
     () => NotificationRepo(getIt<SupabaseClient>()),
+  );
+
+  // Dashboard Repository
+  getIt.registerLazySingleton<DashboardRepo>(
+    () => DashboardRepoImpl(supabaseClient: getIt()),
+  );
+
+  // Booking Repository
+  getIt.registerLazySingleton<BookingRepo>(
+    () => BookingRepoImpl(supabaseClient: getIt()),
   );
 }
