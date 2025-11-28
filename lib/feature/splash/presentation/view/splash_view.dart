@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:dinereserve/core/router/app_router_const.dart';
+import 'package:dinereserve/core/services/restaurant_local_service.dart';
 import 'package:dinereserve/core/services/user_local_service.dart';
 import 'package:dinereserve/core/utils/app_asset.dart';
 import 'package:dinereserve/core/utils/app_colors.dart';
@@ -83,11 +84,18 @@ class _DineReserveViewState extends State<DineReserveView> {
     super.initState();
     Future.delayed(const Duration(seconds: 1), () {
       if (!mounted) return;
-      bool userHasData = getIt<UserLocalService>().isLoggedIn();
-      // Assuming RestaurantLocalService is also registered or handled similarly
-      // For now, let's just check user login or default to onboarding
-      if (userHasData) {
+
+      // Check both user and restaurant login status
+      final userService = getIt<UserLocalService>();
+      final restaurantService = getIt<RestaurantLocalService>();
+
+      final bool userLoggedIn = userService.isLoggedIn();
+      final bool restaurantLoggedIn = restaurantService.isRestaurantLoggedIn();
+
+      if (userLoggedIn) {
         context.goNamed(AppRouterConst.mainViewRouteName);
+      } else if (restaurantLoggedIn) {
+        context.goNamed(AppRouterConst.mainRestViewRouteName);
       } else {
         context.goNamed(AppRouterConst.onBoardingViewRouteName);
       }

@@ -1,3 +1,4 @@
+import 'package:dinereserve/core/model/notification_model.dart';
 import 'package:dinereserve/core/model/payment_method_model.dart';
 import 'package:dinereserve/core/model/restaurant_model.dart';
 import 'package:dinereserve/core/model/user_model.dart';
@@ -11,7 +12,9 @@ import 'package:dinereserve/feature/user_profile/data/user_profile_repo.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/adapters.dart';
 
+import 'package:dinereserve/feature/notification/data/notification_repo.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
 
@@ -21,6 +24,7 @@ Future<void> setupServiceLocator() async {
   Hive.registerAdapter(UserModelAdapter());
   Hive.registerAdapter(RestaurantModelAdapter());
   Hive.registerAdapter(PaymentMethodModelAdapter());
+  Hive.registerAdapter(NotificationModelAdapter());
 
   final userBox = await Hive.openBox<UserModel>('user_box');
   final restaurantBox = await Hive.openBox<RestaurantModel>('restaurant_box');
@@ -43,6 +47,10 @@ Future<void> setupServiceLocator() async {
     () => PaymentMethodLocalService(paymentMethodBox),
   );
 
+  // SharedPreferences
+  final sharedPreferences = await SharedPreferences.getInstance();
+  getIt.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+
   // Repositories
   getIt.registerLazySingleton<GetRestaurantRepo>(
     () => GetRestaurantRepo(getIt<SupabaseClient>()),
@@ -56,5 +64,8 @@ Future<void> setupServiceLocator() async {
   );
   getIt.registerLazySingleton<AdvertisementRepo>(
     () => AdvertisementRepoImpl(supabaseClient: getIt()),
+  );
+  getIt.registerLazySingleton<NotificationRepo>(
+    () => NotificationRepo(getIt<SupabaseClient>()),
   );
 }

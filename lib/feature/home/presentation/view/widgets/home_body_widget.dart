@@ -5,6 +5,9 @@ import 'package:dinereserve/feature/home/presentation/view/widgets/home_search_w
 import 'package:dinereserve/feature/home/presentation/view/widgets/quick_categories_widget.dart';
 import 'package:dinereserve/feature/home/presentation/view_model/home_ads_cubit.dart';
 import 'package:dinereserve/feature/home/presentation/view_model/home_cubit.dart';
+import 'package:dinereserve/core/helpers/service_locator.dart';
+import 'package:dinereserve/feature/notification/data/notification_repo.dart';
+import 'package:dinereserve/feature/notification/presentation/view_model/notification_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,8 +16,15 @@ class HomeBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeAdsCubit()..fetchActiveAds(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => HomeAdsCubit()..fetchActiveAds()),
+        BlocProvider(
+          create: (context) =>
+              NotificationCubit(getIt<NotificationRepo>())
+                ..fetchNotifications(),
+        ),
+      ],
       child: SafeArea(
         child: Builder(
           builder: (context) {
